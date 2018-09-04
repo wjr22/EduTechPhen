@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <context id="DB2Tables" targetRuntime="MyBatis3">
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://39.108.107.28:3306/eduTechPhen?useSSL=false"
+                        userId="root"
+                        password="SillyGoose4d.">
+        </jdbcConnection>
+
+        <javaTypeResolver >
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+
+        <javaModelGenerator targetPackage="cn.nnu.jyjs.etpweb.bean" targetProject=".\src\main\java">
+            <property name="enableSubPackages" value="true" />
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="mapping"  targetProject=".\src\main\resources">
+            <property name="enableSubPackages" value="true" />
+        </sqlMapGenerator>
+
+        <javaClientGenerator type="XMLMAPPER" targetPackage="cn.nnu.jyjs.etpweb.mapper"  targetProject=".\src\main\java">
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+
+        <table schema="eduTechPhen" tableName="tUser" domainObjectName="User" >
+            <property name="useActualColumnNames" value="true"/>
+            <generatedKey column="userId" sqlStatement="MySql" identity="true" />
+            <!--<columnOverride column="" property="startDate" />-->
+            <!--<ignoreColumn column="FRED" />-->
+            <!--<columnOverride column="LONG_VARCHAR_FIELD" jdbcType="VARCHAR" />-->
+        </table>
+        <table schema="eduTechPhen" tableName="tBlog" domainObjectName="Blog" >
+            <property name="useActualColumnNames" value="true"/>
+            <generatedKey column="blogId" sqlStatement="MySql" identity="true" />
+            <columnOverride column="blogUpdateT" property="updateDate" />
+            <columnOverride column="blogCTR" property="clickRate" />
+            <ignoreColumn column="blogCreateT" />
+        </table>
+        <table schema="eduTechPhen" tableName="tComment" domainObjectName="Comment" >
+            <property name="useActualColumnNames" value="true"/>
+            <generatedKey column="commentId" sqlStatement="MySql" identity="true" />
+        </table>
+        <table schema="eduTechPhen" tableName="tTags" domainObjectName="Tag" >
+            <property name="useActualColumnNames" value="true"/>
+            <generatedKey column="tagId" sqlStatement="MySql" identity="true" />
+        </table>
+        <table schema="eduTechPhen" tableName="tTagRelationship" domainObjectName="TagRelationship" >
+            <property name="useActualColumnNames" value="true"/>
+        </table>
+        <table schema="eduTechPhen" tableName="tCategory" domainObjectName="Category" >
+            <property name="useActualColumnNames" value="true"/>
+            <generatedKey column="categoryId" sqlStatement="MySql"/>
+        </table>
+    </context>
+</generatorConfiguration>

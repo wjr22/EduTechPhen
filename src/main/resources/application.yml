@@ -1,0 +1,22 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    name: blog
+    url: jdbc:mysql://39.108.107.28:3306/eduTechPhen?useSSL=false
+    username: root
+    password: SillyGoose4d.
+  thymeleaf:
+    mode: HTML5
+
+mybatis:
+  mapper-locations: classpath:mapping/*.xml
+  type-aliases-package: cn.nnu.jyjs.etpweb
+
+#pagehelper分页插件
+pagehelper:
+    helperDialect: mysql
+    reasonable: true
+    supportMethodsArguments: true
+    params: count=countSql
