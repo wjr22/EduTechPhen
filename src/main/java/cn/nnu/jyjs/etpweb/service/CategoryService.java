@@ -6,5 +6,7 @@ package cn.nnu.jyjs.etpweb.service;
  * @Auther :   wangj
  * @Description:
  */
-public class CategoryService {
+public interface CategoryService {
+    int insertCategory(String category);
+    int getId(String category);
 }

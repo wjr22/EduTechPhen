@@ -1,10 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Documents</title>
+    <th:block th:replace="public/head :: common_header"> </th:block>
+    <script type="text/javascript">
+        var authority = getAuthority();
+        // visitor isn't allowed to read this page documents.
+        if(authority != "administrator" || authority != "user"){
+            alert("您没有权限访问该页面！");
+
+        }
+    </script>
 </head>
 <body>
+    <div class="top">
+        <th:block th:replace="public/navgate :: navbar"></th:block>
+    </div>
+    <div class="col-sm-10 col-sm-offset-1 main">
+        <th:block th:replace="public/navgate :: head"></th:block>
+    </div>
 
 </body>
 </html>

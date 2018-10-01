@@ -93,4 +93,6 @@ public interface CategoryMapper {
      * @mbg.generated Sat Sep 01 15:46:56 CST 2018
      */
     int updateByPrimaryKey(Category record);
+
+    Category selectByName(String categoryName);
 }

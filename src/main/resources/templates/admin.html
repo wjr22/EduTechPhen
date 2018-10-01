@@ -1,10 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<!--  admin  -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>admin</title>
+    <th:block th:replace="public/head :: common_header"> </th:block>
+    <script src="js/unit.js" type="text/javascript" charset="utf-8"></script>
 </head>
+
 <body>
-$END$
+    <div th:replace="public/navgate :: html">
+    </div>
+    <script type="">
+    /**
+    * 回退监听 
+
+   $(document).ready(function(e) { 
+           var counter = 0;
+           if (window.history && window.history.pushState) {
+               $(window).on('popstate', logout());
+           }
+   });*/
+</script>
 </body>
+
 </html>

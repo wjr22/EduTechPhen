@@ -1,10 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html >
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>List</title>
+
 </head>
 <body>
-$END$
+<center>
+    <div th:if="${msg} ne 'NET_ERROR'">
+    <table width="200" border="1">
+        <tr>
+            <th scope="col">序号</th>
+            <th scope="col">博客名称</th>
+            <th scope="col">作者</th>
+            <th scope="col">日期</th>
+            <th scope="col">简介</th>
+        </tr>
+        <tr th:each="blog,blogStat : ${blogs}">
+            <td th:text="${blogStat.count}"></td>
+            <td th:text="${blog.blogTitle}"></td>
+            <td th:text="${blog.author}"></td>
+            <td th:text="${blog.createDate}"></td>
+            <td th:text="${blog.blogAbstract}"></td>
+        </tr>
+    </table>
+    </div>
+        <p>一共${page.pages}页</p>
+    <a href="/list?page=${page.firstPage}">第一页</a>
+    <a href="/list?page=${page.nextPage}">下一页</a>
+    <a href="/list?page=${page.prePage}">上一页</a>
+    <a href="/list?page=${page.lastPage}">最后页</a>
+
+</center>
 </body>
 </html>

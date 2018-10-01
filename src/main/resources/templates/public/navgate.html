@@ -1,10 +1,108 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--    navbar    -->
+<nav class="navbar navbar-default  navbar-static-top col-xs-12" role="navigation" th:fragment="navbar">
+    <div class="container">
+        <!-- logo -->
+        <div class="navbar-header" >
+            <!-- this PLACE can add brand -->
+            <button class="navbar-toggle" data-toggle="collapse" data-target="#menu" type="button">
+                <span class="sr-only">展开导航</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/home">HOME</a>
+        </div>
 
-</body>
+        <form class="navbar-form navbar-left" role="search">
+            <div class="form-group">
+                <input type="text" class="input-ms form-control" placeholder="Search(Article\Category\User)">
+            </div>
+            <button type="submit" class="btn btn-default">搜索</button>
+        </form>
+        <div>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="/signin" id="signin"><span class="glyphicon glyphicon-user"></span> 登录/注册</a></li>
+                <li>
+                    <a href="javascript:void(0)" onclick="logout()" id="quit"><span class="glyphicon glyphicon-off"></span> 退出登录 </a></li>
+                <li>
+                    <a href="/admin" id="center"><span class="glyphicon glyphicon-th-large"></span> 个人中心</a></li>
+            </ul>
+        </div>
+        <!-- this block is used to fill menu -->
+        <div class="collapse navbar-collapse" id="menu">
+            <ul class="nav nav-tabs collapse" th:fragment="head">
+                <li class="active"><a href="#">Home</a></li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        源头活水 <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#"> 现象学 </a></li>
+                        <li><a href="#"> 教育现象学 </a></li>
+                        <li><a href="#"> 技术现象学 </a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        教育技术现象学 <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#"> 理论构建 </a></li>
+                        <li><a href="#"> 实践探索 </a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        质性研究 <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#"> 重要文献 </a></li>
+                        <li><a href="#"> 工作积累 </a></li>
+                    </ul>
+                </li>
+                <li><a href="#"> 博客 </a></li>
+                <li><a href="#"> 论坛 </a></li>
+            </ul>
+        </div>
+    </div>
+    <div style="clear:both"></div>
+</nav>
+<!--    head    -->
+<ul class="nav nav-tabs" th:fragment="head">
+    <li class="active"><a href="#">Home</a></li>
+    <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+            源头活水 <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+            <li><a href="#"> 现象学 </a></li>
+            <li><a href="#"> 教育现象学 </a></li>
+            <li><a href="#"> 技术现象学 </a></li>
+        </ul>
+    </li>
+    <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+            教育技术现象学 <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+            <li><a href="#"> 理论构建 </a></li>
+            <li><a href="#"> 实践探索 </a></li>
+        </ul>
+    </li>
+    <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+            质性研究 <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+            <li><a href="#"> 重要文献 </a></li>
+            <li><a href="#"> 工作积累 </a></li>
+        </ul>
+    </li>
+    <li><a href="#"> 博客 </a></li>
+    <li><a href="#"> 论坛 </a></li>
+    <li><a href="#"> 个人中心 </a></li>
+</ul>
 </html>

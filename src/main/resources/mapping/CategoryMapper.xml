@@ -86,6 +86,10 @@
     -->
     categoryId, categoryName
   </sql>
+  <select id="selectByName" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select * from tCategory where categoryName = #{categoryName}
+  </select>
+
   <select id="selectByExample" parameterType="cn.nnu.jyjs.etpweb.bean.Example.CategoryExample" resultMap="BaseResultMap">
     <!--
       WARNING - @mbg.generated

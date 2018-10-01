@@ -1,5 +1,7 @@
 server:
   port: 8080
+  session:
+    timeout: 120
 
 spring:
   datasource:
@@ -14,9 +16,13 @@ mybatis:
   mapper-locations: classpath:mapping/*.xml
   type-aliases-package: cn.nnu.jyjs.etpweb
 
+logging:
+  file: log/info.log
+#  config: classpath:slf4j.xml
+
 #pagehelper分页插件
-pagehelper:
-    helperDialect: mysql
-    reasonable: true
-    supportMethodsArguments: true
-    params: count=countSql
+#pagehelper:
+#    helperDialect: mysql
+#    reasonable: true
+#    supportMethodsArguments: true
+#    params: count=countSql

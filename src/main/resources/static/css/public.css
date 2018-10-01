@@ -1,0 +1,30 @@
+#center{
+    display: none;
+}
+#signin{
+    display: none;
+}
+#quit{
+    display: none;
+}
+body {
+    background-color: #e3e4de;
+}
+.offset{
+    /*
+    background-color: #e3e4de;
+    */
+}
+.main{
+    background-color: #fdfdfe;
+    padding-left: 20px;
+    padding-right: 20px;
+    box-shadow: 4px 4px 4px #888888;
+}
+.navbar{
+    margin-bottom: 0px;
+    overflow: hidden;
+}
+.container{
+    height: 50px;
+}
