@@ -9,4 +9,5 @@ package cn.nnu.jyjs.etpweb.service;
 public interface CategoryService {
     int insertCategory(String category);
     int getId(String category);
+    String getCategory(Integer categoryId);
 }

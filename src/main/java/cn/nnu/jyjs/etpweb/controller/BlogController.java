@@ -1,8 +1,9 @@
 package cn.nnu.jyjs.etpweb.controller;
 
-import cn.nnu.jyjs.etpweb.bean.Blog;
+import cn.nnu.jyjs.etpweb.bean.*;
 import cn.nnu.jyjs.etpweb.service.BlogService;
 import cn.nnu.jyjs.etpweb.service.CategoryService;
+import cn.nnu.jyjs.etpweb.service.UserService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,13 +33,16 @@ public class BlogController {
     @Autowired
     private CategoryService categoryService;
 
+    @Autowired
+    private UserService userService;
+
     /**
      *
      * @param p_title post title
      * @param p_abstract post abstract
      * @param p_category post category
      * @param p_content post content
-     * @param method "draft" or "publish"
+     * @param method "draft" or "publish" default publish
      * @return
      *      postSuccess html page
      */
@@ -62,15 +66,51 @@ public class BlogController {
         return "Success.html";
     }
 
+    @RequestMapping(value = "/audit")
+    public String getAudit(@RequestParam(required = true,defaultValue = "1") Integer page,
+                           @RequestParam(value = "pageSize",required = false,defaultValue = "15") Integer pageSize,
+                           Model model) {
+        List<BlogSet> blogSets = blogService.selectByStatus(2);
+        int startItem = (page - 1)*15;
+        int itemSize = blogSets.size();
+        Page pageInfo = new Page(pageSize,itemSize);
+        pageInfo.setCurrentPage(page);
+        //System.out.println(pageInfo.getCurrentPage());
+        //System.out.println(pageInfo.getItemsCount());
+        //System.out.println(pageInfo.getPageCount());
+        if(pageInfo.isLastPage()) {
+            blogSets = blogSets.subList(startItem, itemSize );
+        }else {
+            blogSets = blogSets.subList(startItem, startItem + 15);
+        }
+        model.addAttribute("pageInfo",pageInfo);
+        model.addAttribute("blogSet",blogSets);
+        return "center/auditTable.html";
+
+    }
+
+    @RequestMapping(value = "/blog")
+    public String getPage(@RequestParam(value = "blogId",required = true) Integer blogId,
+                          Model model){
+        Blog blog = blogService.selectById(blogId);
+        User user = userService.selectById(blog.getAuthorId());
+        String category = categoryService.getCategory(blog.getBlogCategory());
+        model.addAttribute("author",user.getUserName());
+        model.addAttribute("authorId",user.getUserId());
+        model.addAttribute("category",category);
+        model.addAttribute("blog",blog);
+        return "page.html";
+    }
+
     /**
-     *
+     * NOT USE
      * @param page
      * @param category
      * @param request
      * @param model
      * @return
-     */
-    @RequestMapping(value = "/bloglist")
+
+    @RequestMapping(value = "/articles")
     public String getPosts(@RequestParam(required = true,defaultValue = "1") Integer page,
                            @RequestParam(required = false,value = "category") String category,
                            @RequestParam(required = false,value = "mod") String mod,
@@ -96,4 +136,6 @@ public class BlogController {
         }
         return "list.html";
     }
+     */
 }
+

@@ -1,5 +1,7 @@
 package cn.nnu.jyjs.etpweb.bean;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 import java.util.Date;
 
 public class Comment {
@@ -46,6 +48,7 @@ public class Comment {
      *
      * @mbg.generated Sat Sep 01 15:46:56 CST 2018
      */
+    @JSONField(format="yyyy-MM-dd HH:mm")        //转为JSON时按格式转换
     private Date createT;
 
     /**

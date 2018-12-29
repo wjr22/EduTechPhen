@@ -80,6 +80,7 @@ function getAuthority(){
  * search for page to add active
  */
 $('.nav-tabs').find('a').each(function () {
+    console.log(document.location.href);
     if (this.href == document.location.href || document.location.href.search(this.href) >= 0) {
         $(this).parent().addClass('active'); // this.className = 'active';
     }

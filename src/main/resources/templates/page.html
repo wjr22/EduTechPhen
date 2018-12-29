@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:replace="public/head :: common_header"> </th:block>
+    <link rel="stylesheet" href="css/page.css">
+    <title>Title</title>
+</head>
+<body>
+    <div class="top">
+        <th:block th:replace="public/navgate :: navbar"></th:block>
+    </div>
+    <div class="col-sm-10 col-sm-offset-1 main">
+        <th:block th:replace="public/navgate :: head"></th:block>
+        <!-- page content -->
+        <div id="pageContent">
+            <div id="info">
+                <table>
+                    <tr>
+                        作者：<a th:text="${author}">xxx</a>&nbsp时间：<span th:text="${#dates.format(blog.getUpdateDate(),'yyyy-MM-dd hh:mm')}"></span>&nbsp分类：<span th:text="${category}">xxxx</span>
+                    </tr>
+                </table>
+            </div>
+            <div id="article">
+                <div class="center-block" id="title">
+                    <h1 th:text="${blog.getBlogTitle()}">xxxx</h1>
+                </div>
+                <div id="author">
+                    <small th:text="${author}">xxx</small>
+                </div>
+                <div id="mainContent">
+                    <p th:utext="${blog.getBlogContent()}"></p>
+                </div>
+            </div>
+        </div>
+        <!-- others -->
+        <div id="right-side">
+        </div>
+        <th:block th:replace="public/footer :: copyright"></th:block>
+    </div>
+</body>
+</html>

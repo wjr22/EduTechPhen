@@ -1,6 +1,7 @@
 package cn.nnu.jyjs.etpweb.service.ServiceImpl;
 
 import cn.nnu.jyjs.etpweb.bean.Blog;
+import cn.nnu.jyjs.etpweb.bean.BlogSet;
 import cn.nnu.jyjs.etpweb.mapper.BlogMapper;
 import cn.nnu.jyjs.etpweb.service.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,11 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
+    public int insert(Blog blog) {
+        return blogMapper.insertSelective(blog);
+    }
+
+    @Override
     public List<Blog> selectByCategory(int categoryId) {
         return blogMapper.selectByCategory(categoryId);
     }
@@ -37,5 +43,30 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public List<Blog> selectAll() {
         return blogMapper.selectAllPosts();
+    }
+
+    @Override
+    public Blog selectById(Integer blogId) {
+        return blogMapper.selectByPrimaryKey(blogId);
+    }
+
+    @Override
+    public List<Blog> selectByUser(Integer userId) {
+        return blogMapper.selectByUser(userId);
+    }
+
+    //@Override
+    //public List<Blog> selectByStatus(Integer blogStatus) {
+    //    return blogMapper.selectByStatus(blogStatus);
+    //}
+
+    @Override
+    public List<BlogSet> selectGroup() {
+        return blogMapper.selectByVBlog();
+    }
+
+    @Override
+    public List<BlogSet> selectByStatus(Integer status) {
+        return blogMapper.selectByStatus(status);
     }
 }

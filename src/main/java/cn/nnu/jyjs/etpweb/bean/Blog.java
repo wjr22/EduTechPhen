@@ -1,5 +1,7 @@
 package cn.nnu.jyjs.etpweb.bean;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 import java.util.Date;
 
 public class Blog {
@@ -10,6 +12,7 @@ public class Blog {
 
     private Integer blogStatus;
 
+    @JSONField(format="yyyy-MM-dd HH:mm")        //转为JSON时按格式转换
     private Date updateDate;
 
     private Integer authorId;
@@ -26,6 +29,7 @@ public class Blog {
 
     private String category;
 
+    @JSONField(format="yyyy-MM-dd HH:mm")        //转为JSON时按格式转换
     private Date createDate;
 
     public Blog(){

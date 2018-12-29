@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>hello</title>
+    <link rel="stylesheet"  />
+    <script ></script>
+    <script ></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <th:block th:replace="public/head :: common_header"> </th:block>
+    <style>
+        .table th, .table td {
+            text-align: center;
+            vertical-align: middle!important;
+        }
+    </style>
+</head>
+<body>
+<div>
+<!--/*@thymesVar id="name" type="java.lang.String"*/-->
+<div class="container">
+    <table class="table table-bordered table-hover table-condensed">
+        <tr>
+            <th>ArticleId</th>
+            <th>Title</th>
+            <th>Author</th>
+            <th>LastUpdate</th>
+            <th>Category</th>
+            <th>status</th>
+        </tr>
+        <tr th:each="blog : ${blogSet}">
+            <td th:text="${blog.blogId}"></td>
+            <td th:text="${blog.blogTitle}"></td>
+            <td th:text="${blog.author}"></td>
+            <td th:text="${#dates.format(blog.updateDate,'yyyy-MM-dd')}"></td>
+            <td th:text="${blog.category}"></td>
+            <td th:text="${blog.blogStatus}"></td>
+        </tr>
+    </table>
+
+    <nav>
+        <!-- href 连接字符串： @(${''}}(param1,param2)) -->
+        <ul class="pagination">
+            <!--  第一页  -->
+            <li>
+                <a class="firstPage"><span aria-hidden="true">&laquo;首页</span></a>
+            </li>
+            <!--  下一页
+            <!--   尾页   -->
+            <li>
+                <a class="lastPage"><span aria-hidden="true">&raquo;尾页</span></a>
+            </li>
+        </ul>
+    </nav>
+</div>
+    <script th:inline="javascript" type="text/javascript">
+        var pageCount = [[${pageInfo.getPageCount()}]];
+        var currentPage = [[${pageInfo.getCurrentPage()}]];
+        var isFirstPage = [[${pageInfo.isFirstPage()}]];
+        var isLastPage = [[${pageInfo.isLastPage()}]];
+        console.log(pageCount);
+        console.log(currentPage);
+    </script>
+</body>
+</div>
+</html>

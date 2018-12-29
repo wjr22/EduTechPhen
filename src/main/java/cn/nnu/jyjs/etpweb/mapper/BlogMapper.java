@@ -1,6 +1,7 @@
 package cn.nnu.jyjs.etpweb.mapper;
 
 import cn.nnu.jyjs.etpweb.bean.Blog;
+import cn.nnu.jyjs.etpweb.bean.BlogSet;
 import cn.nnu.jyjs.etpweb.bean.Example.BlogExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
@@ -38,4 +39,8 @@ public interface BlogMapper {
 
     List<Blog> selectByCategory(Integer blogCategory);
     List<Blog> selectAllPosts();
+    List<Blog> selectByUser(Integer userId);
+    //List<Blog> selectByStatus(Integer blogStatus);
+    List<BlogSet> selectByVBlog();
+    List<BlogSet> selectByStatus(Integer status);
 }

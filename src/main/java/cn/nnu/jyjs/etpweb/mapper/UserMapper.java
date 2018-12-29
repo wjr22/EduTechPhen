@@ -32,4 +32,6 @@ public interface UserMapper {
     int updateByPrimaryKeySelective(User record);
 
     int updateByPrimaryKey(User record);
+
+    int updateUserStatus(@Param("userStatus") Integer userStatus, @Param("userId") Integer userId);
 }

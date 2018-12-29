@@ -14,6 +14,9 @@ import java.util.List;
 public interface UserService {
     User selectByName(String name);
     User selectByEmail(String email);
+    User selectById(Integer userId);
     List<String> insertInspect(User user);
-    void exitUser(HttpServletRequest request);
+    void exitUser(int userId);
+    void login(int userId);
+    boolean islogin(int userId);
 }

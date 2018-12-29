@@ -7,7 +7,14 @@
 
 <body>
 <div th:fragment="copyright">
-    &copy; 2011 The Good Thymes Virtual Grocery
+    <footer class="main-footer">
+        <!-- To the right -->
+        <div class="pull-right hidden-xs">
+            Anything you want
+        </div>
+        <!-- Default to the left -->
+        <strong>Copyright &copy; <span th:text="${#dates.format(new java.util.Date().getTime(), 'yyyy')}">time</span> <a href="../about.html">NNU ETP</a>.</strong> All rights reserved.
+    </footer>
 </div>
 </body>
 

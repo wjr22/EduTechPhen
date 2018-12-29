@@ -9,6 +9,7 @@
 }
 body {
     background-color: #e3e4de;
+    min-width: 1000px;
 }
 .offset{
     /*
@@ -27,4 +28,11 @@ body {
 }
 .container{
     height: 50px;
+}
+footer{
+    margin-top: 15px;
+    margin-right: 20px;
+    margin-right: 20px;
+    text-align: center;
+    border-top: 2px #3f729b;
 }

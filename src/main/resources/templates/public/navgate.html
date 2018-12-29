@@ -31,7 +31,10 @@
                     <a href="/admin" id="center"><span class="glyphicon glyphicon-th-large"></span> 个人中心</a></li>
             </ul>
         </div>
-        <!-- this block is used to fill menu -->
+        <!--
+          --this block is used to fill menu
+          -- BUT IT DOESN'T USE
+          -->
         <div class="collapse navbar-collapse" id="menu">
             <ul class="nav nav-tabs collapse" th:fragment="head">
                 <li class="active"><a href="#">Home</a></li>
@@ -40,9 +43,9 @@
                         源头活水 <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="#"> 现象学 </a></li>
-                        <li><a href="#"> 教育现象学 </a></li>
-                        <li><a href="#"> 技术现象学 </a></li>
+                        <li><a href="/doc?type=source&target=phenomenon"> 现象学 </a></li>
+                        <li><a href="/doc?type=source&target=edu"> 教育现象学 </a></li>
+                        <li><a href="/doc?type=source&target=tech"> 技术现象学 </a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
@@ -50,8 +53,8 @@
                         教育技术现象学 <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="#"> 理论构建 </a></li>
-                        <li><a href="#"> 实践探索 </a></li>
+                        <li><a href="/doc?type=etp&target=theory"> 理论构建 </a></li>
+                        <li><a href="/doc?type=etp&target=practice"> 实践探索 </a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
@@ -59,12 +62,12 @@
                         质性研究 <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="#"> 重要文献 </a></li>
-                        <li><a href="#"> 工作积累 </a></li>
+                        <li><a href="/doc?type=qualitative&target=literature"> 重要文献 </a></li>
+                        <li><a href="/doc?type=qualitative&target=experience"> 工作积累 </a></li>
                     </ul>
                 </li>
-                <li><a href="#"> 博客 </a></li>
-                <li><a href="#"> 论坛 </a></li>
+                <li><a href="/blog"> 博客 </a></li>
+                <li><a href="/"> 论坛 </a></li>
             </ul>
         </div>
     </div>
@@ -103,6 +106,6 @@
     </li>
     <li><a href="#"> 博客 </a></li>
     <li><a href="#"> 论坛 </a></li>
-    <li><a href="#"> 个人中心 </a></li>
+    <li><a href="/admin"> 个人中心 </a></li>
 </ul>
 </html>

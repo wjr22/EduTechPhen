@@ -323,4 +323,7 @@
       userHeadUrl = #{userHeadUrl,jdbcType=CHAR}
     where userId = #{userId,jdbcType=INTEGER}
   </update>
+  <update id="updateUserStatus" parameterType="java.lang.Integer">
+    update tuser set userStatus = #{userStatus} where userId = #{userId}
+  </update>
 </mapper>

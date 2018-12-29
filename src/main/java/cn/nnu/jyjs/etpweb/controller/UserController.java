@@ -56,10 +56,10 @@ public class UserController {
     public @ResponseBody String getSession(HttpServletRequest request){
 
         if(request.getSession().getAttribute("userId") == null) {
-            logger.info("NOT FOUND request to get session");
+            //logger.info("NOT FOUND request to get session");
             return "null";
         }
-        logger.info(request.getSession().getAttribute("userId").toString() + " request to get session");
+        //logger.info(request.getSession().getAttribute("userId").toString() + " request to get session");
         return request.getSession().getAttribute("userId").toString();
     }
 
@@ -82,7 +82,10 @@ public class UserController {
                          Model model){
         // check name type
         User user = userService.selectByName(userName);
-
+        /*  check multiple login */
+        if(userService.islogin(user.getUserId())){
+            return "ISLOGIN";
+        }
         if(user == null){
             return "USER_NOT_FOUND";
         }
@@ -91,18 +94,8 @@ public class UserController {
         logger.info("new user login in "+new Date(session.getCreationTime()).toString());
         logger.info("user name is "+userName);
         if(user.getUserPassword().equals(userPassword)){
-            /*
-             * NOT USE
-             *if(user.getUserStatus() == 1){
-             *   model.addAttribute("Msg","isLogin");
-             *   return "login.html";
-             *}
-             *user.setUserStatus(1);
-             *userMapper.updateByPrimaryKey(user);
-             */
-            session.setAttribute("userName",user.getUserName());
+            userService.login(user.getUserId());
             session.setAttribute("userId",user.getUserId());
-            session.setAttribute("userAuthority",user.getUserAuthority());
             session.setMaxInactiveInterval(36000);
             if(isSave != null){
                 /*
@@ -114,10 +107,7 @@ public class UserController {
                 cookie.setMaxAge(60 * 60 * 24 * 30);
                 response.addCookie(cookie);
             }
-            /*  check multiple login */
-            if( users.contains(user.getUserId())){
-                return "ISLOGIN";
-            }
+
             users.add(user.getUserId());
             return "SUCCESS";
         }
@@ -137,7 +127,8 @@ public class UserController {
                                        @RequestParam(name = "userEmail") String userEmail){
         userPassword = Encryption.getPsdCipher(userPassword);
         User user = new User(userName,userPassword,userEmail);
-        if(userMapper.selectByEmail(userEmail) != null ){
+        // use userMapper
+        if(userService.selectByEmail(userEmail) != null ){
             return "EMAIL_UNIQUE";
         }else if(userMapper.selectByName(userName) != null){
             return "NAME_UNIQUE";
@@ -145,6 +136,8 @@ public class UserController {
             userMapper.insertSelective(user);
             return "SUCCESS";
         }
+        // use userService
+
     }
 
     /**
@@ -156,6 +149,7 @@ public class UserController {
     public @ResponseBody String SignOut(HttpServletRequest request){
         users.remove(request.getSession().getAttribute("userId"));
         logger.info(request.getSession().getAttribute("userId")+" is log out");
+        userService.exitUser((int)request.getSession().getAttribute("userId"));
         request.getSession().invalidate();
         return "SUCCESS";
     }

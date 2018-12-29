@@ -1,0 +1,35 @@
+#pageContent{
+    border:1px solid #587C19;
+    padding: 10px;
+}
+#pageContent{
+    width: 840px;
+    background-color: #f7f8f3;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    min-height: 600px;
+    min-width: 640px;
+}
+#right-side{
+    float: left;
+}
+p{
+
+}
+#author{
+    text-align: right;
+    margin-right: 15px;
+}
+#title{
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+#mainContent p{
+    text-indent:25px;
+}
+#mainContent h{
+    font-size: smaller;
+    font-weight:normal;
+}

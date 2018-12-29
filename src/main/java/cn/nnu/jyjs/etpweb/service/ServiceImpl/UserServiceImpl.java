@@ -37,23 +37,52 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User selectById(Integer userId) {
+        return userMapper.selectByPrimaryKey(userId);
+    }
+
+    @Override
     public List<String> insertInspect(User user) {
         List<String> msg=new LinkedList<String>();
         if(userMapper.selectByName(user.getUserName()) != null ){
+            msg.add("");
             if(userMapper.selectByEmail(user.getUsereEmail()) != null){
-
-            }else{
                 msg.add("");
+            }else{
+
             }
         }else{
-            msg.add("");
+
         }
         return msg;
     }
 
     @Override
-    public void exitUser(HttpServletRequest request) {
-        HttpSession session = request.getSession();
-
+    public void exitUser(int userId) {
+        User user = userMapper.selectByPrimaryKey(userId);
+        switch (user.getUserStatus()){
+            case 0:
+                // System Err
+                break;
+            case 1:
+                userMapper.updateUserStatus(0,user.getUserId());
+                break;
+        }
     }
+
+    @Override
+    public void login(int userId) {
+        userMapper.updateUserStatus(1,userId);
+    }
+
+    /**
+     * @param userId
+     * @return If userId is Signin : return true,or false
+     */
+    @Override
+    public boolean islogin(int userId) {
+        return userMapper.selectByPrimaryKey(userId).getUserStatus() == 1? true : false;
+    }
+
+
 }
