@@ -1,10 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
+
 </head>
 <body>
-
+<!-- Main Footer -->
+<footer class="main-footer" th:fragment="foot">
+    <!-- To the right -->
+    <div class="pull-right hidden-xs">
+        Anything you want
+    </div>
+    <!-- Default to the left -->
+    <strong>Copyright &copy; <span th:text="${#dates.format(new java.util.Date().getTime(), 'yyyy')}">time</span> <a href="about.html">NNU ETP</a>.</strong> All rights reserved.
+</footer>
 </body>
 </html>

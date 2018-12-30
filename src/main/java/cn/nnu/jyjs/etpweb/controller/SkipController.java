@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -50,8 +51,6 @@ public class SkipController {
     public String skipAdmin(Model ui, HttpServletRequest request){
         User user = userService.selectById((Integer) request.getSession().getAttribute("userId"));
         ui.addAttribute("user",user);
-        //logger.info(user.getUserName());
-        //logger.info(user.getUserAuthority());
         if(user == null){
             return "login.html";
         }
@@ -60,6 +59,30 @@ public class SkipController {
         }else{
             return "userCenter.html";
         }
+    }
+    @RequestMapping(value = "/admin/{path}")
+    public String skipAdmin2(Model ui, HttpServletRequest request,
+                            @PathVariable("path") String path){
+        User user = userService.selectById((Integer) request.getSession().getAttribute("userId"));
+        ui.addAttribute("user",user);
+        if(user == null){
+            return "login.html";
+        }else {
+            if (user.getUserAuthority().equals("administrator")) {
+                switch (path) {
+                    case "allArticle":
+                        return "center/article/allArticle.html";
+                    case "audit":
+                        return "center/article/audit";
+                    case "userControl":
+                        return "center/user/user.html";
+                }
+                return "adminCenter.html";
+            } else {
+                return "userCenter.html";
+            }
+        }
+
     }
 
     @RequestMapping(value = "/documents")

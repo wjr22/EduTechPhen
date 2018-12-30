@@ -7,97 +7,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>后台管理</title>
 
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="assets/plugins/font-awesome/css/font-awesome.min.css">
-    <!-- Ionicons
-    <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css"> -->
-    <!-- Theme style -->
-    <link rel="stylesheet" href="assets/css/AdminLTE.min.css">
-    <link rel="stylesheet" href="assets/css/_all-skins.min.css">
-    <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-    <script type="text/javascript" src="webjars/jquery/2.2.1/jquery.min.js"></script>
-    <script type="text/javascript" src="webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/admin.js"></script>
-    <script type="text/javascript" src="js/public.js"></script>
-    <script type="text/javascript">
-        var data = checkIsLogin();
-        console.log(data);
-        if(data == "FALSE"){
-            // NOT SIGNIN DON'T ALLOW ACCESS
-            window.location.href = "/signin";
-        }
-    </script>
+    <th:block th:replace="center/public/header :: comman-head"></th:block>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
     <!-- Main Header -->
-    <th:block th:replace="center/header :: header"></th:block>
-    <!-- Left side column. contains the logo and sidebar -->
-    <aside class="main-sidebar">
+    <!-- Main Header -->
+    <th:block th:replace="center/public/header :: header"></th:block>
 
-        <!-- sidebar: style can be found in sidebar.less -->
-        <section class="sidebar">
-            <!-- Sidebar user panel (optional) -->
-            <div class="user-panel">
-                <div class="pull-left image">
-                    <img src="images/admin.jpg" class="img-circle" alt="User Image">
-                </div>
-                <div class="pull-left info">
-                    <p th:text="${user.userName}">admin</p>
-                    <!-- Status -->
-                    <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
-                </div>
-            </div>
-            <!-- search form (Optional) -->
-            <form action="#" method="get" class="sidebar-form">
-                <div class="input-group">
-                    <input type="text" name="q" class="form-control" placeholder="Search...">
-                    <span class="input-group-btn">
-              <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-              </button>
-            </span>
-                </div>
-            </form>
-            <!-- /.search form -->
-            <!-- Sidebar Menu -->
-            <ul class="sidebar-menu" data-widget="tree">
-                <li class="header">MENU</li>
-                <!-- Optionally, you can add icons to the links class="active"-->
-                <li>
-                    <a href="#admin">
-                        <i class="fa fa-circle-o" id="adminLink"></i><span>admin</span>
-                    </a>
-                </li>
-                <li class="treeview">
-                    <a href="#blog">
-                        <i class="fa fa-link"></i> <span>博客管理</span>
-                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li><a href="#" id="auditLink"><i class="fa fa-table"></i>文章审核</a></li>
-                        <li><a href="#" id="postLink">已发布文章管理</a></li>
-                        <li><a href="/editor" id="addLink">编辑文章</a> </li>
-                    </ul>
-                </li>
-                <li class="treeview">
-                    <a href="#">
-                        <i class="fa fa-link"></i> <span>用户管理</span>
-                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li><a href="#" id="replyLink">用户审核</a></li>
-                        <li><a href="#" id="groupLink">用户管理</a></li>
-                    </ul>
-                </li>
-            </ul>
-            <!-- /.sidebar-menu -->
-        </section>
-        <!-- /.sidebar -->
-    </aside>
-    <!-- Content Wrapper. Contains page content -->
+    <th:block th:replace="center/public/leftAside :: aside"></th:block>
+
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
@@ -113,36 +32,14 @@
               -->
         </section>
         <!-- Header End -->
-        <!-- Main content -->
-        <section class="content container-fluid" style="display: block">
+        <section class="content container-fluid" id="audits" style="display: block">
             <h1> 所有文章 </h1>
         </section>
+
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
-    <!-- Main Footer -->
-    <footer class="main-footer">
-        <!-- To the right -->
-        <div class="pull-right hidden-xs">
-            Anything you want
-        </div>
-        <!-- Default to the left -->
-        <strong>Copyright &copy; <span th:text="${#dates.format(new java.util.Date().getTime(), 'yyyy')}">time</span> <a href="about.html">NNU ETP</a>.</strong> All rights reserved.
-    </footer>
-    <!-- Control Sidebar -->
-    <!-- /.control-sidebar -->
-    <!-- Add the sidebar's background. This div must be placed
-    immediately after the control sidebar -->
-    <div class="control-sidebar-bg"></div>
-</div>
-<!-- ./wrapper -->
-<!-- REQUIRED JS SCRIPTS -->
-<script type="text/javascript" src="webjars/jquery/2.2.1/jquery.min.js"></script>
-<script type="text/javascript" src="webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<!-- AdminLTE App-->
-<script src="assets/js/adminlte.min.js"></script>
-<!-- Optionally, you can add Slimscroll and FastClick plugins.
-     Both of these plugins are recommended to enhance the
-     user experience. -->
+
+    <th:block th:replace="center/public/footer :: foot"></th:block>
 </body>
 </html>
