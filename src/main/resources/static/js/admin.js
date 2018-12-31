@@ -1,71 +1,29 @@
 $(document).ready(function () {
-    // menu click initialize
-    //console.log('this is in ready function');
-    $('#auditLink').click(auditInit());
-    $('#postLink').click();
-    $('#article-generality').click();
-    //$.ajax({
-    //    url: "/getArticles.do?method=status",
-    //    type: 'get',
-    //    dataType: 'json',
-    //    success: function(data){
-    //        console.log(data);
-    //        //var parsedData = JSON.parse(data);
-    //        $('#auditsTable').html(data);
-    //    }
-    //})
+    var url = GetUrlRelativePath();
+    switch (url) {
+        case "/admin/audit":
+            $('#_blog').addClass('active');
+            $('#_blog').addClass('active');
+        break;
+        case "/admin/allArticle":
+            $('#_blog').addClass('active');
+            $('#_blog').addClass('active');
+            break;
+        case "/admin/userControl":
+            $('#_blog').addClass('active');
+            $('#_blog').addClass('active');
+            break;
+    }
 });
+function GetUrlRelativePath() {
+    var url = document.location.toString();
+    var arrUrl = url.split("//");
 
-function auditInit() {
-    console.log("this is in audit initialize function");
-    var tableBody = $.ajax({
-        url: '/audit',
-        success: function (data) {
-            //console.log(data);
-            //console.log($(data).find('body'));
-            if(data){
-                //var html = $(data).find('body');
-                console.log(true);
-                $('#audits').html(data);
-                $('#audits').css('display','block');
-            }
-        }
-    });
-    console.log(tableBody);
-    //$('#auditContent').html(tableBody.responseText);
-    auditListener();
-}
-function auditListener() {
+    var start = arrUrl[1].indexOf("/");
+    var relUrl = arrUrl[1].substring(start);//stop省略，截取从start开始到结尾的所有字符
 
-    // first page
-    if(currentPage == 1){
-        //disabled firstPage
-        $('.firstPage').attr('disabled','true');
-    }else{
-        $('.firstPage').removeAttr('disabled');
+    if(relUrl.indexOf("?") != -1){
+        relUrl = relUrl.split("?")[0];
     }
-
-    // last page
-    if(currentPage == pageCount){
-        //disabled lastPage
-        $('.lastPage').attr('disabled','true');
-    }else{
-        $('.lastPage').removeAttr('disabled');
-    }
-    $('.firstPage').click(function () {
-        var tableBody = $.ajax({url: '/audit'});
-        $('#auditsContent').html(tableBody.responseText);
-    });
-    $('.lastPage').click(function(){
-        var tableBody = $.ajax({
-            url: '/audit?page=2',
-            success: function (data) {
-                if(data){
-                    var html = $(data).find('body');
-                    $('#auditContent').html(html);
-                }
-            }
-        });
-    });
-
+    return relUrl;
 }
