@@ -29,7 +29,7 @@
         </tr>
         <tr th:each="blog : ${blogSet}">
             <td th:text="${blog.blogId}"></td>
-            <td th:text="${blog.blogTitle}"></td>
+            <td th:text="${blog.blogTitle}"><a href="auditTable.html"></a></td>
             <td th:text="${blog.author}"></td>
             <td th:text="${#dates.format(blog.updateDate,'yyyy-MM-dd')}"></td>
             <td th:text="${blog.category}"></td>

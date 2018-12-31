@@ -1,7 +1,10 @@
 package cn.nnu.jyjs.etpweb.controller;
 
+import cn.nnu.jyjs.etpweb.bean.BlogSet;
 import cn.nnu.jyjs.etpweb.bean.User;
+import cn.nnu.jyjs.etpweb.service.BlogService;
 import cn.nnu.jyjs.etpweb.service.UserService;
+import org.hibernate.validator.constraints.URL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.logging.Logger;
 
 /**
@@ -23,6 +27,9 @@ import java.util.logging.Logger;
 public class SkipController {
 
     private Logger logger = Logger.getLogger("SkipController");
+
+    @Autowired
+    private BlogService blogService;
 
     @Autowired
     private UserService userService;
@@ -65,14 +72,19 @@ public class SkipController {
                             @PathVariable("path") String path){
         User user = userService.selectById((Integer) request.getSession().getAttribute("userId"));
         ui.addAttribute("user",user);
+        List<BlogSet> blogSet;
         if(user == null){
             return "login.html";
         }else {
             if (user.getUserAuthority().equals("administrator")) {
                 switch (path) {
                     case "allArticle":
+                        blogSet = blogService.selectAll();
+                        ui.addAttribute("blogSet",blogSet);
                         return "center/article/allArticle.html";
                     case "audit":
+                        blogSet = blogService.selectByStatus(2);
+                        ui.addAttribute("blogSet",blogSet);
                         return "center/article/audit";
                     case "userControl":
                         return "center/user/user.html";

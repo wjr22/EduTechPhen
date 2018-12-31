@@ -66,6 +66,13 @@ public class BlogController {
         return "Success.html";
     }
 
+    /**
+     * NOT USE
+     * @param page
+     * @param pageSize
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/audit")
     public String getAudit(@RequestParam(required = true,defaultValue = "1") Integer page,
                            @RequestParam(value = "pageSize",required = false,defaultValue = "15") Integer pageSize,
@@ -75,9 +82,6 @@ public class BlogController {
         int itemSize = blogSets.size();
         Page pageInfo = new Page(pageSize,itemSize);
         pageInfo.setCurrentPage(page);
-        //System.out.println(pageInfo.getCurrentPage());
-        //System.out.println(pageInfo.getItemsCount());
-        //System.out.println(pageInfo.getPageCount());
         if(pageInfo.isLastPage()) {
             blogSets = blogSets.subList(startItem, itemSize );
         }else {
@@ -101,8 +105,30 @@ public class BlogController {
         model.addAttribute("blog",blog);
         return "page.html";
     }
+    @RequestMapping(value = "/list")
+    public String getList(@RequestParam(value = "userName",required = false) String userName,
+                          @RequestParam(value = "category",required = false) String category,
+                          Model model){
+        List<BlogSet> blogSets;
+        String cases = null;
+        if(userName == null){
 
-    /**
+        }else{
+            User user = userService.selectByName(userName);
+            blogSets = blogService.selectByUserId(user.getUserId());
+            model.addAttribute("blogSets",blogSets);
+
+        }
+        if(category == null){
+
+        }else{
+
+        }
+        model.addAttribute("cases", cases);
+        return "userMain.html";
+    }
+
+    /*
      * NOT USE
      * @param page
      * @param category

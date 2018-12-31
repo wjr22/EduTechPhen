@@ -4,6 +4,7 @@ $(document).ready(function () {
         case "/admin/audit":
             $('#_blog').addClass('active');
             $('#_blog').addClass('active');
+            appendTablePath();
         break;
         case "/admin/allArticle":
             $('#_blog').addClass('active');
@@ -18,7 +19,6 @@ $(document).ready(function () {
 function GetUrlRelativePath() {
     var url = document.location.toString();
     var arrUrl = url.split("//");
-
     var start = arrUrl[1].indexOf("/");
     var relUrl = arrUrl[1].substring(start);//stop省略，截取从start开始到结尾的所有字符
 
@@ -26,4 +26,7 @@ function GetUrlRelativePath() {
         relUrl = relUrl.split("?")[0];
     }
     return relUrl;
+}
+function appendTablePath(input){
+
 }

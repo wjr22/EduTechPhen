@@ -41,7 +41,7 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public List<Blog> selectAll() {
+    public List<BlogSet> selectAll() {
         return blogMapper.selectAllPosts();
     }
 
@@ -63,6 +63,11 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public List<BlogSet> selectGroup() {
         return blogMapper.selectByVBlog();
+    }
+
+    @Override
+    public List<BlogSet> selectByUserId(Integer userId) {
+        return blogMapper.selectByUserIdSet(userId);
     }
 
     @Override

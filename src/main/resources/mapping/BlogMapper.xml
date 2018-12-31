@@ -113,12 +113,16 @@
     select `tblog`.`blogId` AS `blogId`,`tblog`.`blogTitle` AS `blogTitle`,`tuser`.`userName` AS `author`,`tstatus`.`description` AS `blogStatus`,`tblog`.`blogUpdateT` AS `updateDate`,`tcategory`.`categoryName` AS `category`,`tblog`.`blogContent` AS `blogContent`,`tblog`.`blogAbstract` AS `blogAbstract`,`tblog`.`blogCTR` AS `clickRate` from (((`tuser` join `tblog` on((`tblog`.`authorId` = `tuser`.`userId`))) join `tcategory` on((`tblog`.`blogCategory` = `tcategory`.`categoryId`))) join `tstatus` on((`tblog`.`blogStatus` = `tstatus`.`blogStatus`))) where (`tblog`.`blogStatus` = #{status})
   </select>
 
+  <select id="selectByUserIdSet" resultType="cn.nnu.jyjs.etpweb.bean.BlogSet" parameterType="java.lang.Integer">
+    select `tblog`.`blogId` AS `blogId`,`tblog`.`blogTitle` AS `blogTitle`,`tuser`.`userName` AS `author`,`tstatus`.`description` AS `blogStatus`,`tblog`.`blogUpdateT` AS `updateDate`,`tcategory`.`categoryName` AS `category`,`tblog`.`blogContent` AS `blogContent`,`tblog`.`blogAbstract` AS `blogAbstract`,`tblog`.`blogCTR` AS `clickRate` from (((`tuser` join `tblog` on((`tblog`.`authorId` = `tuser`.`userId`))) join `tcategory` on((`tblog`.`blogCategory` = `tcategory`.`categoryId`))) join `tstatus` on((`tblog`.`blogStatus` = `tstatus`.`blogStatus`))) where (`tuser`.`userId` = #{userId})
+  </select>
+
   <select id="selectByVBlog" resultType="cn.nnu.jyjs.etpweb.bean.BlogSet">
     select * from vblog
   </select>
 
-  <select id="selectAllPosts" resultMap="BaseResultMap">
-    select * from tBlog
+  <select id="selectAllPosts" resultType="cn.nnu.jyjs.etpweb.bean.BlogSet">
+    select `tblog`.`blogId` AS `blogId`,`tblog`.`blogTitle` AS `blogTitle`,`tuser`.`userName` AS `author`,`tstatus`.`description` AS `blogStatus`,`tblog`.`blogUpdateT` AS `updateDate`,`tcategory`.`categoryName` AS `category`,`tblog`.`blogContent` AS `blogContent`,`tblog`.`blogAbstract` AS `blogAbstract`,`tblog`.`blogCTR` AS `clickRate` from (((`tuser` join `tblog` on((`tblog`.`authorId` = `tuser`.`userId`))) join `tcategory` on((`tblog`.`blogCategory` = `tcategory`.`categoryId`))) join `tstatus` on((`tblog`.`blogStatus` = `tstatus`.`blogStatus`)))
   </select>
 
   <select id="selectByCategory" resultMap="BaseResultMap" parameterType="java.lang.Integer">

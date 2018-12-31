@@ -35,6 +35,24 @@
         <!-- Header End -->
         <section class="content container-fluid" id="audits" style="display: block">
             <h1> 审核文章 </h1>
+            <table class="table table-bordered table-hover table-condensed">
+            <tr>
+                <th>ArticleId</th>
+                <th>Title</th>
+                <th>Author</th>
+                <th>LastUpdate</th>
+                <th>Category</th>
+                <th>status</th>
+            </tr>
+            <tr th:each="blog : ${blogSet}">
+                <td th:text="${blog.blogId}"></td>
+                <td th:text="${blog.blogTitle}"></td>
+                <td th:text="${blog.author}"></td>
+                <td th:text="${#dates.format(blog.updateDate,'yyyy-MM-dd')}"></td>
+                <td th:text="${blog.category}"></td>
+                <td th:text="${blog.blogStatus}"></td>
+            </tr>
+        </table>
         </section>
 
         <!-- /.content -->
