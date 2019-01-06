@@ -6,7 +6,7 @@ server:
 spring:
   datasource:
     name: blog
-    url: jdbc:mysql://39.108.107.28:3306/eduTechPhen?useSSL=false
+    url: jdbc:mysql://39.108.107.28:3306/eduTechPhen?useSSL=false&useUnicode=true&characterEncoding=utf8
     username: root
     password: SillyGoose4d.
   thymeleaf:
@@ -18,6 +18,10 @@ mybatis:
 
 logging:
   file: log/info.log
+
+file:
+  upload: D:/webFile
+
 #  config: classpath:slf4j.xml
 
 #pagehelper分页插件

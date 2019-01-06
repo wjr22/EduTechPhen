@@ -79,9 +79,15 @@ public class SkipController {
             if (user.getUserAuthority().equals("administrator")) {
                 switch (path) {
                     case "allArticle":
-                        blogSet = blogService.selectAll();
-                        ui.addAttribute("blogSet",blogSet);
-                        return "center/article/allArticle.html";
+                        if (user.getUserId() == 1) {
+                            blogSet = blogService.selectAll();
+                            ui.addAttribute("blogSet", blogSet);
+                            return "center/article/allArticle.html";
+                        } else {
+                            blogSet = blogService.selectByUserId(user.getUserId());
+                            ui.addAttribute("blogSet", blogSet);
+                            return "center/user/allArticle.html";
+                        }
                     case "audit":
                         blogSet = blogService.selectByStatus(2);
                         ui.addAttribute("blogSet",blogSet);
@@ -118,16 +124,30 @@ public class SkipController {
         return "center/user/user.html";
     }
 
+    /**
+     * NOT USE
+     *
+     * @return
+     */
     @RequestMapping(value = "/center/article/generality")
     public String skipCenterArticleGenerality(){
         return "center/article/allArticle.html";
     }
 
+    /**
+     * NOT USE
+     *
+     * @return
+     */
     @RequestMapping(value = "/center/article/audit")
     public String skipCenterArticleAudit(){
         return "center/article/audit.html";
     }
 
+    /**
+     * NOT USE
+     * @return
+     */
     @RequestMapping(value = "/center/article/editor")
     public String skipCenterEditor(){
         return "center/article/editor.html";

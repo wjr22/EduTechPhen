@@ -14,7 +14,8 @@ import java.util.List;
 public interface BlogService {
     int insertBlog(Blog record,int userId,int categoryId);
     int insert(Blog blog);
-    List<Blog> selectByCategory(int categoryId);
+
+    List<BlogSet> selectByCategory(String categoryId);
     List<BlogSet> selectAll();
     Blog selectById(Integer blogId);
     List<Blog> selectByUser(Integer userId);
@@ -22,4 +23,8 @@ public interface BlogService {
     List<BlogSet> selectGroup();//this equal selectByStatus(2);
     List<BlogSet> selectByStatus(Integer status);
     List<BlogSet> selectByUserId(Integer userId);
+
+    BlogSet selectByBlogId(Integer blogId);
+
+    int updateStatus(Blog blog);
 }

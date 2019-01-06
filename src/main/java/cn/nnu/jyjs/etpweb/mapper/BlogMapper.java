@@ -37,11 +37,16 @@ public interface BlogMapper {
 
     int updateByPrimaryKey(Blog record);
 
-    List<Blog> selectByCategory(Integer blogCategory);
+    //List<Blog> selectByCategory(Integer blogCategory);
     List<BlogSet> selectAllPosts();
     List<Blog> selectByUser(Integer userId);
     //List<Blog> selectByStatus(Integer blogStatus);
     List<BlogSet> selectByVBlog();
     List<BlogSet> selectByStatus(Integer status);
-    List<BlogSet> selectByUserIdSet(Integer userId);
+
+    List<BlogSet> selectByUserIdRetSet(Integer userId);
+
+    BlogSet selectByBlogIdRetSet(Integer blogId);
+
+    List<BlogSet> selectByCategory(String category);
 }

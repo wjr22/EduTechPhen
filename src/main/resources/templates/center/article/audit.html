@@ -15,7 +15,7 @@
     <!-- Main Header -->
     <th:block th:replace="center/public/header :: header"></th:block>
 
-    <th:block th:replace="center/public/leftAside :: aside"></th:block>
+    <th:block th:replace="center/public/leftAsideAdmin :: aside"></th:block>
 
 
     <div class="content-wrapper">
@@ -35,24 +35,54 @@
         <!-- Header End -->
         <section class="content container-fluid" id="audits" style="display: block">
             <h1> 审核文章 </h1>
-            <table class="table table-bordered table-hover table-condensed">
-            <tr>
-                <th>ArticleId</th>
-                <th>Title</th>
-                <th>Author</th>
-                <th>LastUpdate</th>
-                <th>Category</th>
-                <th>status</th>
-            </tr>
-            <tr th:each="blog : ${blogSet}">
-                <td th:text="${blog.blogId}"></td>
-                <td th:text="${blog.blogTitle}"></td>
-                <td th:text="${blog.author}"></td>
-                <td th:text="${#dates.format(blog.updateDate,'yyyy-MM-dd')}"></td>
-                <td th:text="${blog.category}"></td>
-                <td th:text="${blog.blogStatus}"></td>
-            </tr>
-        </table>
+            <table class="table table-bordered table-hover table-condensed" id="data-audit">
+                <thead>
+                <tr>
+                    <th><input type="checkbox" id="check-all"/></th>
+                    >
+                    <th>文章ID</th>
+                    <th>标题</th>
+                    <th>作者</th>
+                    <th>最后更新时间</th>
+                    <th>文章类型</th>
+                    <th>审核</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="blog : ${blogSet}">
+                    <td><input type="checkbox"/></td>
+                    <td th:text="${blog.blogId}"></td>
+                    <td><a th:href="@{/blog(blogId=${blog.blogId})}" th:text="${blog.blogTitle}"></a></td>
+                    <td><a th:href="@{/list(userName=${blog.author})}" th:text="${blog.author}"></a></td>
+                    <td th:text="${#dates.format(blog.updateDate,'yyyy-MM-dd')}"></td>
+                    <td th:text="${blog.category}"></td>
+                    <td><a id="pass" th:href="@{'/doAudit.do?blogId='+${blog.blogId}+'&target=pass'}">通过</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a id="false" data-toggle="modal" data-target="#check-model">拒绝</a></td>
+                </tr>
+                </tbody>
+            </table>
+            <a type="button" id="pass-select" name="通过选择">审核通过选择</a>
+            <!--<a type="button" id="notpass-select" name="拒绝选择">拒绝</a>-->
+            <!-- 模态框（Modal） -->
+            <div class="modal fade" id="check-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">反馈</h4>
+                        </div>
+                        <div class="modal-body">
+                            <textarea class="form-control" rows="3" name=textarea></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                            <button type="button" class="btn btn-primary" id="sub">提交</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal -->
+            </div>
+
         </section>
 
         <!-- /.content -->
@@ -60,6 +90,27 @@
     <!-- /.content-wrapper -->
 
     <th:block th:replace="center/public/footer :: foot"></th:block>
+    <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- DataTables -->
+    <script src="/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <!-- SlimScroll -->
+    <script src="/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+    <!-- FastClick -->
+    <script src="/bower_components/fastclick/lib/fastclick.js"></script>
+    <script type="text/javascript">
+        $('#data-audit').dataTable({
+            'paging': true,
+            'lengthChange': true,
+            'searching': true,
+            'ordering': true,
+            'info': true,
+            'autoWidth': false,
+        });
+        $(document).ready(function () {
+
+        })
+    </script>
 </div>
 </body>
 </html>

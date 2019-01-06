@@ -21,8 +21,18 @@ public enum Constant {
     EMAIL_UNIQUE("email_unique"),
     NAME_UNIQUE("name_unique"),
     SUCCESS("success"),
+
+    /**
+     * status :
+     */
+    STATUS_DRAFT("draft"),
+    STATUS_PASS("pass"),
+    STATUS_NOTPASS("notpass"),
+    STATUS_AUDIT("audit")
     ;
 
     Constant(String str) {
     }
+
+
 }

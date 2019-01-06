@@ -94,5 +94,5 @@ public interface CategoryMapper {
      */
     int updateByPrimaryKey(Category record);
 
-    Category selectByName(String categoryName);
+    Category selectByName(@Param("categoryName") String categoryName);
 }

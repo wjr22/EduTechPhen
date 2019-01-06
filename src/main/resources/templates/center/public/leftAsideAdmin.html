@@ -1,0 +1,88 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="aside">
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="main-sidebar">
+
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+            <!-- Sidebar user panel (optional) -->
+            <div class="user-panel">
+                <div class="pull-left image">
+                    <img src="/images/admin.jpg" class="img-circle" alt="User Image">
+                </div>
+                <div class="pull-left info">
+                    <p th:text="${user.userName}">admin</p>
+                    <!-- Status -->
+                    <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                </div>
+            </div>
+
+            <!-- search form (Optional) -->
+            <form action="#" method="get" class="sidebar-form">
+                <div class="input-group">
+                    <input type="text" name="q" class="form-control" placeholder="Search...">
+                    <span class="input-group-btn">
+              <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+              </button>
+            </span>
+                </div>
+            </form>
+            <!-- /.search form -->
+
+            <!-- Sidebar Menu -->
+            <ul class="sidebar-menu" data-widget="tree">
+                <li class="header">MENU</li>
+                <!-- Optionally, you can add icons to the links class="active"-->
+                <li id="_admin">
+                    <a href="/admin">
+                        <i class="fa fa-circle-o" id="adminLink"></i><span>admin</span>
+                    </a>
+                </li>
+                <li class="treeview" id="_blog">
+                    <a href="#">
+                        <i class="fa fa-link"></i> <span>博客管理</span>
+                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li id="auditLink">
+                            <a href="/admin/audit">
+                                <i class="fa fa-table"></i>文章审核
+                            </a>
+                        </li>
+                        <li id="allArticleLink">
+                            <a href="/admin/allArticle">
+                                <i class="fa fa-tablet"></i>已发布文章管理
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/editor" id="addLink">
+                                <i class="fa fa-edit"></i>编辑文章
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="treeview" id="_user">
+                    <a href="#">
+                        <i class="fa fa-link"></i> <span>用户管理</span>
+                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li id="replyLink">
+                            <a href="#">
+                                <i class="fa fa-user-secret"></i>用户审核
+                            </a>
+                        </li>
+                        <li id="groupLink">
+                            <a href="/admin/userControl">
+                                <i class="fa fa-users"></i>用户管理
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <!-- /.sidebar-menu -->
+        </section>
+        <!-- /.sidebar -->
+    </aside>
+</th:block>
+</html>

@@ -36,8 +36,8 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public List<Blog> selectByCategory(int categoryId) {
-        return blogMapper.selectByCategory(categoryId);
+    public List<BlogSet> selectByCategory(String category) {
+        return blogMapper.selectByCategory(category);
     }
 
     @Override
@@ -67,7 +67,17 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public List<BlogSet> selectByUserId(Integer userId) {
-        return blogMapper.selectByUserIdSet(userId);
+        return blogMapper.selectByUserIdRetSet(userId);
+    }
+
+    @Override
+    public BlogSet selectByBlogId(Integer blogId) {
+        return blogMapper.selectByBlogIdRetSet(blogId);
+    }
+
+    @Override
+    public int updateStatus(Blog blog) {
+        return blogMapper.updateByPrimaryKey(blog);
     }
 
     @Override

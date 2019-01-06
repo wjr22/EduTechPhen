@@ -46,6 +46,38 @@ function loadEditor(){
     );
 }
 
+function submit(title, abstract, content) {
+    $.ajax({
+        url: "/posts",
+        async: false,
+        type: "post",
+        data: {
+            title: title,
+            abstract: abstract,
+            content: content
+        },
+        success: function (data) {
+            alert("success");
+        }
+    })
+}
+
+function submit(title, abstract, content, category) {
+    $.ajax({
+        url: "/posts",
+        async: false,
+        type: "post",
+        data: {
+            title: title,
+            abstract: abstract,
+            content: content,
+            category: category
+        },
+        success: function (data) {
+
+        }
+    })
+}
 /*
     
     forbidden goback 
