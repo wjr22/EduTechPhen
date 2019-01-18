@@ -1,0 +1,37 @@
+<!doctype html>
+<!-- home / index  -->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="" />
+    <th:block th:replace="public/head :: common_header"> </th:block>
+    <script src="/js/navigate.js"></script>
+    <script type="application/javascript">
+        $(document).ready(function () {
+            addActive();
+            blog();
+        })
+    </script>
+    <style>
+        .b-list{
+            margin-top: 50px;
+            margin-left: 30px;
+
+        }
+    </style>
+</head>
+<body>
+<div class="top">
+    <th:block th:replace="public/navgate :: navbar"></th:block>
+</div>
+<div class="col-sm-10 col-sm-offset-1 main">
+    <th:block th:replace="public/navgate :: head"></th:block>
+    <div id="main-contain">
+
+    </div>
+</div>
+
+</body>
+</html>

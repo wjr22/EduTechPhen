@@ -1,5 +1,6 @@
 server:
   port: 8080
+  baseURL: locolhost
   session:
     timeout: 120
 

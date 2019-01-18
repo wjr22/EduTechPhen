@@ -90,6 +90,37 @@
     -->
     commentId, blogId, userId, content, createT, parentId
   </sql>
+
+  <select id="selectByUserId" parameterType="java.lang.Integer" resultType="cn.nnu.jyjs.etpweb.bean.Comment">
+    select `tUser`.`userName` as userName,
+            `tComment`.`userId` as userId,
+            `tComment`.`content` as content,
+            `tComment`.`createT` as createT,
+            `tCommetn`.`parentId` as parentId
+    from tUser,tComment
+    where `tUser`.`userId` = `tComment`.`userId` and `tComment`.`userId` = #{userId}
+  </select>
+
+  <select id="selectByBlogId" parameterType="java.lang.Integer" resultType="cn.nnu.jyjs.etpweb.bean.Comment">
+    select `tUser`.`userName` as userName,
+            `tComment`.`userId` as userId,
+            `tComment`.`content` as content,
+            `tComment`.`createT` as createT,
+            `tComment`.`parentId` as parentId
+    from tUser,tComment
+    where `tUser`.`userId` = `tComment`.`userId` and `tComment`.`blogId` = #{blogId}
+  </select>
+
+  <select id="selectByParent" parameterType="java.lang.Integer" resultType="cn.nnu.jyjs.etpweb.bean.Comment">
+    select `tUser`.`userName` as userName,
+            `tComment`.`userId` as userId,
+            `tComment`.`content` as content,
+            `tComment`.`createT` as createT,
+            `tCommetn`.`parentId` as parentId
+    from tUser,tComment
+    where `tUser`.`userId` = `tComment`.`userId` and `tComment`.`parentId` = #{parentId}
+  </select>
+
   <select id="selectByExample" parameterType="cn.nnu.jyjs.etpweb.bean.Example.CommentExample" resultMap="BaseResultMap">
     <!--
       WARNING - @mbg.generated

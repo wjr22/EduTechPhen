@@ -4,11 +4,16 @@
     <meta charset="UTF-8">
     <title>Documents</title>
     <th:block th:replace="public/head :: common_header"> </th:block>
+    <script src="/js/navigate.js"></script>
     <script type="text/javascript">
         var authority = getAuthority();
+        alert(authority);
         // visitor isn't allowed to read this page documents.
         if(authority != "administrator" || authority != "user"){
             alert("您没有权限访问该页面！");
+            window.location.href = "/home";
+        }else{
+            addActive();
         }
     </script>
 </head>

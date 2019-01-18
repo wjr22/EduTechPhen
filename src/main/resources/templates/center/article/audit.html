@@ -8,6 +8,21 @@
     <title>后台管理</title>
 
     <th:block th:replace="center/public/header :: comman-head"></th:block>
+    <style>
+        .modal #modal-warning {
+            position: relative;
+            top: auto;
+            bottom: auto;
+            right: auto;
+            left: auto;
+            display: block;
+            z-index: 1;
+        }
+
+        .modal #modal-warning {
+            background: transparent !important;
+        }
+    </style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -33,83 +48,143 @@
               -->
         </section>
         <!-- Header End -->
-        <section class="content container-fluid" id="audits" style="display: block">
+        <section class="content" id="audits">
             <h1> 审核文章 </h1>
             <table class="table table-bordered table-hover table-condensed" id="data-audit">
+
                 <thead>
-                <tr>
-                    <th><input type="checkbox" id="check-all"/></th>
-                    >
-                    <th>文章ID</th>
-                    <th>标题</th>
-                    <th>作者</th>
-                    <th>最后更新时间</th>
-                    <th>文章类型</th>
-                    <th>审核</th>
-                </tr>
+                    <tr>
+                        <th><input type="checkbox" id="check-all"></th>
+                        <th>文章ID</th>
+                        <th>标题</th>
+                        <th>作者</th>
+                        <th>最后更新时间</th>
+                        <th>文章类型</th>
+                        <th>审核</th>
+                    </tr>
                 </thead>
                 <tbody>
-                <tr th:each="blog : ${blogSet}">
-                    <td><input type="checkbox"/></td>
-                    <td th:text="${blog.blogId}"></td>
-                    <td><a th:href="@{/blog(blogId=${blog.blogId})}" th:text="${blog.blogTitle}"></a></td>
-                    <td><a th:href="@{/list(userName=${blog.author})}" th:text="${blog.author}"></a></td>
-                    <td th:text="${#dates.format(blog.updateDate,'yyyy-MM-dd')}"></td>
-                    <td th:text="${blog.category}"></td>
-                    <td><a id="pass" th:href="@{'/doAudit.do?blogId='+${blog.blogId}+'&target=pass'}">通过</a>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <a id="false" data-toggle="modal" data-target="#check-model">拒绝</a></td>
-                </tr>
+                <!-- USE thymeleaf
+                    <tr th:each="blog : ${blogSet}">
+                        <td><input type="checkbox"/></td>
+                        <td th:text="${blog.blogId}"></td>
+                        <td><a th:href="@{/blog(blogId=${blog.blogId})}" th:text="${blog.blogTitle}"></a></td>
+                        <td><a th:href="@{/list(userName=${blog.author})}" th:text="${blog.author}"></a></td>
+                        <td th:text="${#dates.format(blog.updateDate,'yyyy-MM-dd')}"></td>
+                        <td th:text="${blog.category}"></td>
+                        <td><a href="javascript:audit("+${blog.blogId}+")" >通过</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                             !-- th:href="@{'/doAudit.do?blogId='+${blog.blogId}+'&target=pass'}" --
+                            <a href="javascript:void(0)" >拒绝</a></td>
+                    </tr>
+                    -->
                 </tbody>
+
             </table>
             <a type="button" id="pass-select" name="通过选择">审核通过选择</a>
-            <!--<a type="button" id="notpass-select" name="拒绝选择">拒绝</a>-->
-            <!-- 模态框（Modal） -->
-            <div class="modal fade" id="check-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-                 aria-hidden="true">
+            <!--<a type="button" id="notpass-select" name="拒绝选择">拒绝</a>
+            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-warning">
+                Launch Info Modal
+            </button>-->
+            <div class="modal modal-warning fade" id="modal-warning">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title" id="myModalLabel">反馈</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">Warning! 拒绝原因</h4>
                         </div>
                         <div class="modal-body">
-                            <textarea class="form-control" rows="3" name=textarea></textarea>
+                            <textarea rows="3" name="reason"></textarea>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                            <button type="button" class="btn btn-primary" id="sub">提交</button>
+                            <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">关闭</button>
+                            <button type="button" class="btn btn-outline" onclick="t()">提交</button>
                         </div>
-                    </div><!-- /.modal-content -->
-                </div><!-- /.modal -->
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
             </div>
-
+            <!-- /.modal -->
         </section>
-
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
 
     <th:block th:replace="center/public/footer :: foot"></th:block>
-    <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <div class="control-sidebar-bg"></div>
+
     <!-- DataTables -->
     <script src="/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
     <!-- SlimScroll -->
     <script src="/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
     <!-- FastClick -->
-    <script src="/bower_components/fastclick/lib/fastclick.js"></script>
+    <!--<script src="/bower_components/fastclick/lib/fastclick.js"></script>-->
     <script type="text/javascript">
-        $('#data-audit').dataTable({
-            'paging': true,
-            'lengthChange': true,
-            'searching': true,
-            'ordering': true,
-            'info': true,
-            'autoWidth': false,
-        });
         $(document).ready(function () {
 
-        })
+            /**
+             * get data and paging
+             * */
+            var res = getDataFromStatus('audit');
+            var blogId = 0;
+            var table = $('#data-audit').DataTable({
+                data: res.blogSets,
+                columns: [{
+                    "data": null
+                }, {
+                    "data": "blogId",
+                    "orderable": true
+                }, {
+                    "data": "blogTitle"
+                }, {
+                    "data": "author"
+                }, {
+                    "data": "updateDate"
+                }, {
+                    "data": "category"
+                }, {
+                    "data": null,
+                    "render": function (data, type, row, meta) {
+                        var html = "<button type='button' class='btn-sm btn-primary' id='btnPass'>通过</button>" +
+                            "<button type='button' class='btn-sm btn-primary' data-toggle=\"modal\" data-target=\"#modal-warning\" id='btnNotPass'>不通过</button>";
+                        return html;
+                    }
+                }
+                ],
+                "language": {
+                    "lengthMenu": "_MENU_ 条记录每页",
+                    "zeroRecords": "没有找到记录",
+                    "info": "第 _PAGE_ 页 ( 总共 _PAGES_ 页 )",
+                    "infoEmpty": "无记录",
+                    "infoFiltered": "(从 _MAX_ 条记录过滤)",
+                    "paginate": {
+                        "previous": "上一页",
+                        "next": "下一页"
+                    }
+                },
+                paging: true,
+                pageLength: 15,
+                lengthChange: false,
+                searching: true,
+                ordering: true,
+                info: true,
+                pagingType: "full_numbers"
+            });
+            table.on('click','button#btnPass',function () {
+                var row = table.row($(this).parents('tr'));
+                var data = row.data();
+                audit(data.blogId,'pass',null,table);
+                row.remove().draw(false);
+            });
+            table.on('click','button#btnNotPass',function () {
+                var row = table.row($(this).parents('tr'));
+                var data = row.data();
+                blogId = data.blogId;
+            })
+        });
     </script>
 </div>
 </body>

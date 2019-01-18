@@ -93,4 +93,8 @@ public interface CommentMapper {
      * @mbg.generated Sat Sep 01 15:46:56 CST 2018
      */
     int updateByPrimaryKey(Comment record);
+
+    List<Comment> selectByBlogId(Integer blogId);
+    List<Comment> selectByUserId(Integer userId);
+    List<Comment> selectByParent(Integer parentId);
 }

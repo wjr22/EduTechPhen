@@ -3,24 +3,20 @@ package cn.nnu.jyjs.etpweb;
 import cn.nnu.jyjs.etpweb.bean.*;
 import cn.nnu.jyjs.etpweb.controller.BackstorageController;
 import cn.nnu.jyjs.etpweb.mapper.CategoryMapper;
-import cn.nnu.jyjs.etpweb.service.BlogService;
-import cn.nnu.jyjs.etpweb.service.CategoryService;
-import cn.nnu.jyjs.etpweb.service.MessageService;
-import cn.nnu.jyjs.etpweb.service.UserService;
+import cn.nnu.jyjs.etpweb.service.*;
 import cn.nnu.jyjs.etpweb.utils.Encryption;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.FileCopyUtils;
 
 import java.io.File;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -39,7 +35,7 @@ public class EtpwebApplicationTests {
     private CategoryService categoryService;
 
     @Autowired
-    private CategoryMapper categoryMapper;
+    private CommentService commentService;
 
     @Test
     public void contextLoads() {
@@ -53,7 +49,7 @@ public class EtpwebApplicationTests {
 
     @Test
     public void testCategory() {
-        Category categoryId = categoryMapper.selectByName("博客");
+        int categoryId = categoryService.getId("博客");
         System.out.println("category id is " + categoryId);
         //Category categoryId2 = categoryMapper.selectTest("博客");
         //System.out.println("category id is "+ categoryId2);
@@ -72,6 +68,21 @@ public class EtpwebApplicationTests {
         for (Message m :
                 messages) {
             System.out.println(m.getMessage());
+        }
+    }
+
+    @Test
+    public void testTime(){
+        Date date = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyMMdd");
+        System.out.println(simpleDateFormat.format(date));
+    }
+
+    @Test
+    public void testComment(){
+        List<Comment> comments = commentService.selectByBlogId(1);
+        for(Comment comment: comments){
+            System.out.println(comment.getUserName());
         }
     }
 

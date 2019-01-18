@@ -35,11 +35,22 @@
         <script src="/bower_components/jquery/dist/jquery.min.js"></script>
         <!-- Bootstrap 3.3.7 -->
         <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-        <!-- FastClick -->
+        <!-- FastClick
         <script src="/bower_components/fastclick/lib/fastclick.js"></script>
+        -->
         <!-- AdminLTE App -->
         <script src="/dist/js/adminlte.min.js"></script>
+        <script src="/dist/js/demo.js"></script>
         <script src="/js/admin.js" type="text/javascript"></script>
+        <script src="/js/unit.js" type="text/javascript" charset="utf-8"></script>
+        <script type="text/javascript">
+            var get = checkIsLogin();
+            console.log(get);
+            if(get == "FALSE"){
+                alert("该页面需要登录！\n 您还未登录！\n ");
+                window.location.href="/signin";
+            }
+        </script>
         <style>
             .table th, .table td {
                 text-align: center;
@@ -58,7 +69,13 @@
         <span class="logo-lg"><b>HOME</b></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
-    <nav class="navbar navbar-static-top" role="navigation">
+    <nav class="navbar navbar-static-top">
+        <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </a>
         <!-- Navbar Right Menu -->
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
@@ -66,17 +83,20 @@
                 <li class="dropdown messages-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-envelope-o"></i>
-                        <span class="label label-success">4</span>
+                        <span class="label label-success">1</span>
                     </a>
+                    <!--
+                      --  TODO Message Box
+                      -->
                     <ul class="dropdown-menu">
-                        <li class="header">You have 4 messages</li>
+                        <li class="header">You have 1 messages</li>
                         <li>
                             <!-- inner menu: contains the actual data -->
                             <ul class="menu">
                                 <li><!-- start message -->
                                     <a href="#">
                                         <div class="pull-left">
-                                            <img src="/static/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                                            <img src="/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
                                         </div>
                                         <h4>
                                             Sender Name
@@ -85,7 +105,6 @@
                                         <p>Message Excerpt</p>
                                     </a>
                                 </li><!-- end message -->
-                                ...
                             </ul>
                         </li>
                         <li class="footer"><a href="#">See All Messages</a></li>
@@ -107,7 +126,6 @@
                                         <i class="ion ion-ios-people info"></i> Notification title
                                     </a>
                                 </li>
-                                ...
                             </ul>
                         </li>
                         <li class="footer"><a href="#">View all</a></li>
@@ -137,7 +155,6 @@
                                         </div>
                                     </a>
                                 </li><!-- end task item -->
-                                ...
                             </ul>
                         </li>
                         <li class="footer">

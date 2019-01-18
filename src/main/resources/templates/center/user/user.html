@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>用户信息</title>
+    <title>后台管理</title>
 
     <th:block th:replace="center/public/header :: comman-head"></th:block>
 </head>
@@ -15,9 +15,10 @@
     <!-- Main Header -->
     <th:block th:replace="center/public/header :: header"></th:block>
 
-    <th:block th:replace="center/public/leftAside :: aside"></th:block>
+    <th:block th:replace="center/public/leftAsideUser :: aside"></th:block>
 
 
+    <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
@@ -34,7 +35,7 @@
         </section>
         <!-- Header End -->
         <section class="content container-fluid" id="audits" style="display: block">
-            <h1> 审核文章 </h1>
+            <h1> 用户中心 </h1>
         </section>
 
         <!-- /.content -->
@@ -42,6 +43,18 @@
     <!-- /.content-wrapper -->
 
     <th:block th:replace="center/public/footer :: foot"></th:block>
+
+    <!-- Control Sidebar -->
+    <!-- /.control-sidebar -->
+    <!-- Add the sidebar's background. This div must be placed
+    immediately after the control sidebar -->
+    <div class="control-sidebar-bg"></div>
 </div>
+<!-- ./wrapper -->
+
+
+<!-- Optionally, you can add Slimscroll and FastClick plugins.
+     Both of these plugins are recommended to enhance the
+     user experience. -->
 </body>
 </html>

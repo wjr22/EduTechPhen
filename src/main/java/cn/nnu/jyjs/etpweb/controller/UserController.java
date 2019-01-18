@@ -81,7 +81,12 @@ public class UserController {
                          HttpServletResponse response,
                          Model model){
         // check name type
-        User user = userService.selectByName(userName);
+        User user;
+        if(userName.contains("@")){
+            user = userService.selectByEmail(userName);
+        }else{
+            user = userService.selectByName(userName);
+        }
         /*  check multiple login */
         if(userService.islogin(user.getUserId())){
             return "ISLOGIN";

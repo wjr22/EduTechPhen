@@ -8,6 +8,14 @@
     <title>后台管理</title>
 
     <th:block th:replace="center/public/header :: comman-head"></th:block>
+    <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- DataTables -->
+    <script src="/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <!-- SlimScroll -->
+    <script src="/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+    <!-- FastClick -->
+    <script src="/bower_components/fastclick/lib/fastclick.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -35,6 +43,7 @@
         <section class="content container-fluid" id="audits" style="display: block">
             <h1> 所有文章 </h1>
             <table class="table table-bordered table-hover table-condensed" id="data-all">
+                <thead>
                 <tr>
                     <th>文章ID</th>
                     <th>标题</th>
@@ -43,6 +52,8 @@
                     <th>文章类型</th>
                     <th>状态</th>
                 </tr>
+                </thead>
+                <tbody>
                 <tr th:each="blog : ${blogSet}">
                     <td th:text="${blog.blogId}"></td>
                     <td><a th:href="@{/blog(blogId=${blog.blogId})}" th:text="${blog.blogTitle}"></a></td>
@@ -51,17 +62,27 @@
                     <td th:text="${blog.category}"></td>
                     <td><a th:href="@{/}" th:text="${blog.blogStatus}"></a></td>
                 </tr>
+                </tbody>
             </table>
         </section>
-
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
 
     <th:block th:replace="center/public/footer :: foot"></th:block>
-    <script th:inline="javascript">
 
-        console.log(message);
+    <script type="text/javascript" th:inline="javascript">
+        $('#data-all').dataTable({
+            'paging': true,
+            'lengthChange': true,
+            'searching': true,
+            'ordering': true,
+            'info': true,
+            'autoWidth': false,
+        });
+        $(document).ready(function () {
+
+        })
     </script>
 </div>
 </body>

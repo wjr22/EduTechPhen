@@ -1,16 +1,16 @@
-#pageContent{
+.pageContent{
     border:1px solid #587C19;
     padding: 10px;
-}
-#pageContent{
-    width: 840px;
     background-color: #f7f8f3;
     margin-top: 10px;
     margin-left: 10px;
     margin-right: 10px;
-    min-height: 600px;
-    min-width: 640px;
 }
+.pageContent #_article{
+    min-height: 600px;
+    width: 700px;
+}
+
 #right-side{
     float: left;
 }

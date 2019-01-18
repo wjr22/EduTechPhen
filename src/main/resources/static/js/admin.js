@@ -3,17 +3,19 @@ $(document).ready(function () {
     switch (url) {
         case "/admin/audit":
             $('#_blog').addClass('active');
-            $('#_blog').addClass('active');
+            $('auditLink').addClass('active');
             appendTablePath();
         break;
         case "/admin/allArticle":
             $('#_blog').addClass('active');
-            $('#_blog').addClass('active');
+            $('#allArticleLink').addClass('active');
             break;
         case "/admin/userControl":
-            $('#_blog').addClass('active');
-            $('#_blog').addClass('active');
+            $('#_user').addClass('active');
+            $('#groupLink').addClass('active');
             break;
+        case "/admin":
+            $('_admin').addClass('active');
     }
 });
 function GetUrlRelativePath() {
@@ -29,4 +31,38 @@ function GetUrlRelativePath() {
 }
 function appendTablePath(input){
 
+}
+/*
+function audit(blogId, method){
+    alert('method is '+method);
+}*/
+function audit(blogId, method, reason, table) {
+    $.ajax({
+        url: "/doAudit.do",
+        data: {
+            'blogId':blogId,
+            'target':method,
+            'reason':reason
+        },
+        dataType: "json",
+        success: function (data) {
+        }
+    });
+    return true;
+}
+
+function getDataFromStatus(param) {
+    var res = [];
+    $.ajax({
+        url: '/getArticles.do',
+        type: 'get',
+        data: {'method': 'status','status': param},
+        async: false,
+        success: function (result) {
+            res = $.parseJSON(result);
+            //console.log(res);
+            //console.log(res.data[7]);
+        }
+    });
+    return res;
 }

@@ -79,15 +79,9 @@ public class SkipController {
             if (user.getUserAuthority().equals("administrator")) {
                 switch (path) {
                     case "allArticle":
-                        if (user.getUserId() == 1) {
-                            blogSet = blogService.selectAll();
-                            ui.addAttribute("blogSet", blogSet);
-                            return "center/article/allArticle.html";
-                        } else {
-                            blogSet = blogService.selectByUserId(user.getUserId());
-                            ui.addAttribute("blogSet", blogSet);
-                            return "center/user/allArticle.html";
-                        }
+                        blogSet = blogService.selectAll();
+                        ui.addAttribute("blogSet", blogSet);
+                        return "center/article/allArticle.html";
                     case "audit":
                         blogSet = blogService.selectByStatus(2);
                         ui.addAttribute("blogSet",blogSet);
@@ -97,15 +91,40 @@ public class SkipController {
                 }
                 return "adminCenter.html";
             } else {
-                return "userCenter.html";
+                logger.info(path);
+                logger.info("not admin");
+                if(path.equals("allArticle")) {
+                    blogSet = blogService.selectByUserId(user.getUserId());
+                    ui.addAttribute("blogSet", blogSet);
+                    return "center/user/allArticle.html";
+                }else if(path == ""){
+                    return "home.html";
+                }else{
+                    return "userCenter.html";
+                }
             }
         }
 
     }
 
+    @RequestMapping(value = "/test")
+    public String test(){
+        return "test.html";
+    }
+
     @RequestMapping(value = "/documents")
     public String skipDocuments(){
-        return "documents.html";
+        return "home/documents.html";
+    }
+
+    @RequestMapping(value = "/home/blog")
+    public String skipBlogs(){
+        return "/home/blog";
+    }
+
+    @RequestMapping(value = "/home/doc")
+    public String skipDocs(){
+        return "/home/documents";
     }
 
     /* ? NOT USE */

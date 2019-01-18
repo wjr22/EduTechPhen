@@ -43,21 +43,54 @@
             <h1 class="center-block">文章编辑器</h1>
             <div class="form-group Title">
                 <!--    title   -->
-                <input class="form-control" maxlength="64" type="text" id="txtTitle" name="title" placeholder="输入文章标题（less than 64字）">
+                <input class="form-control" maxlength="64" type="text" id="txtTitle" name="title" placeholder="输入文章标题（<64字,必须）">
             </div>
             <div class="form-group Abstract">
                 <!--    abstract       -->
-                <textarea class="form-control" rows="5" id="txtAbstract" name="abstract" placeholder="输入简介(less than 256字)" style="resize:none;"></textarea>
+                <textarea class="form-control" rows="5" id="txtAbstract" name="abstract" placeholder="输入简介(<=256字，非必需)" style="resize:none;"></textarea>
             </div>
             <div class="Editor">
                 <!--    editor      -->
                 <textarea id="editor" name="editor" rows="30" style="resize:none;"></textarea>
+            </div>
+            <!-- TODO category -->
+            <div class="form-inline">
+                <h3 style="float: left">选择类型</h3>
+                <select class="form-control" id="type" style="margin-top: 18px;margin-left: 20px;margin-bottom: 30px">
+                    <option value="5">博客</option>
+                    <option value="21">现象学</option>
+                    <option value="22">教育现象学</option>
+                    <option value="23">技术现象学</option>
+                    <option value="31">现象学理论构建</option>
+                    <option value="32">现象学实践探索</option>
+                    <option value="41">质性研究文献</option>
+                    <option value="42">质性研究积累</option>
+                </select>
             </div>
             <div class="col-md-8 col-md-offset-5 btn-group">
                 <button type="button" class="btn-lg btn-primary" id="submit-post">发布</button>
                 <button type="button" class="btn-lg btn-primary" id="storage-post">暂存</button>
             </div>
         </div>
+    </div>
+    <div class="modal modal-warning fade" id="modal-warning">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Warning!</h4>
+                </div>
+                <div class="modal-body">
+                    <p id="reason"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline pull-right" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
     </div>
     <script>
         $(document).ready(function () {
@@ -66,15 +99,19 @@
                 var title = $('#txtTitle').val();
                 var abstract = $('#txtAbstract').val();
                 var content = CKEDITOR.instances.editor.getData();
-                console.log(title);
-                console.log(abstract);
-                console.log(content);
-                submit(title, abstract, content);
+                var category = $('#type').val();
+                if(title == null || title == ""){
+                    $('#reason').html("<b>请输入标题</b>");
+                    $('#modal-warning').modal();
+                }else {
+                    submit(title, abstract, content, category);
+                }
             });
             $('#storage-post').click(function () {
 
             })
         });
+
     </script>
 </body>
 

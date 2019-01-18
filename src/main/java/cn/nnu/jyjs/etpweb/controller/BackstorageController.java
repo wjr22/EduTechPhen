@@ -64,7 +64,7 @@ public class BackstorageController {
                              @RequestParam(value = "status", required = false) String status,
                              @RequestParam(value = "id", required = false) Integer id,
                              @RequestParam(value = "author", required = false) String author,
-                             @RequestParam(value = "category", required = false) String category) {
+                             @RequestParam(value = "category", required = false) Integer category) {
         List<BlogSet> blogSets = new LinkedList<>();
         boolean result = true;
         Map<String, Object> json = new LinkedHashMap<>();
@@ -95,13 +95,13 @@ public class BackstorageController {
                 if (category == null) {
                     result = false;
                 } else {
-                    blogSets = blogService.selectByCategory(category);
+                    blogSets = blogService.selectByCategory(categoryService.getCategory(category));
                 }
                 break;
         }
         json.put("result", result);
         if (result) {
-            json.put("data", blogSets);
+            json.put("blogSets", blogSets);
         }
         //BlogSet blogSet = new BlogSet(blog,user.getUserName(),
                                 //categoryService.getCategory(blog.getBlogCategory()));

@@ -1,10 +1,7 @@
 package cn.nnu.jyjs.etpweb.controller;
 
 import cn.nnu.jyjs.etpweb.bean.*;
-import cn.nnu.jyjs.etpweb.service.BlogService;
-import cn.nnu.jyjs.etpweb.service.CategoryService;
-import cn.nnu.jyjs.etpweb.service.MessageService;
-import cn.nnu.jyjs.etpweb.service.UserService;
+import cn.nnu.jyjs.etpweb.service.*;
 import cn.nnu.jyjs.etpweb.utils.Encryption;
 import com.alibaba.fastjson.JSONArray;
 import com.github.pagehelper.PageHelper;
@@ -48,6 +45,9 @@ public class BlogController {
     private UserService userService;
 
     @Autowired
+    private CommentService commentService;
+
+    @Autowired
     private MessageService messageService;
 
     @Value("${file.upload}")
@@ -55,7 +55,7 @@ public class BlogController {
 
 
     /**
-     * from editor
+     * from editor upload article
      * @param p_title post title
      * @param p_abstract post abstract
      * @param p_category post category
@@ -65,9 +65,9 @@ public class BlogController {
      *      postSuccess html page
      */
     @RequestMapping(value = "/posts")
-    public String getPosts(@RequestParam(value = "title") String p_title,
+    public @ResponseBody String getPosts(@RequestParam(value = "title") String p_title,
                            @RequestParam(value = "abstract") String p_abstract,
-                           @RequestParam(value = "category", required = false) String p_category,
+                           @RequestParam(value = "category", required = false) Integer p_category,
                            @RequestParam(value = "content") String p_content,
                            @RequestParam(value = "method", required = false) String method,
                            HttpServletRequest request){
@@ -92,19 +92,28 @@ public class BlogController {
                         Message m = new Message();
                         m.setToId(userId);
                         m.setFromId(1);
-                        m.setMessage("您的文章审核通过，已发布，谢谢");
+                        m.setMessage("您的文章正在等待审核，谢谢使用本网！");
                         messageService.insertMessage(m);
                     }
                     break;
             }
         }
         if (p_category == null) {
-            p_category = "博客";
+            p_category = 5;
         }
-
-        blogService.insertBlog(blog, (int)request.getSession().getAttribute("userId"),
-                categoryService.getId(p_category));
-        return "Success.html";
+        Date date = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyMMdd");
+        int b = blog.getBlogTitle().hashCode();
+        String id = simpleDateFormat.format(date) + String.valueOf(b);
+        logger.info(id);
+        blog.setBlogId(Integer.parseInt(id.substring(0,9)));
+        if(blogService.selectById(blog.getBlogId()) == null) {
+            blogService.insertBlog(blog, (int) request.getSession().getAttribute("userId"), p_category);
+        }else{
+            return "title unique";
+        }
+        String res;
+        return "SUCCESS";
     }
 
     /**
@@ -186,20 +195,21 @@ public class BlogController {
     /**
      * One blog audit
      *
-     * @param blogId
-     * @param target
+     * @param blogId blog id
+     * @param target notpass/pass/draft
      * @param request
      * @param response
      * @return
      */
     @RequestMapping(value = "/doAudit.do")
-    @ResponseBody
-    public String audit(@RequestParam(value = "blogId") Integer blogId,
+    public @ResponseBody String audit(@RequestParam(value = "blogId") Integer blogId,
                         @RequestParam(value = "target") String target,
                         @RequestParam(value = "reason", required = false) String reason,
                         HttpServletRequest request,
                         HttpServletResponse response) {
         Map<String, Object> result = new LinkedHashMap<>();
+        int userId = (Integer) request.getSession().getAttribute("userId");
+        Message m;
         if (blogId == null) {
             result.put("request", "null");
         } else {
@@ -210,9 +220,20 @@ public class BlogController {
             switch (target) {
                 case "notpass":
                     blog.setBlogStatus(3);
+                    m = new Message();
+                    m.setToId(userId);
+                    m.setFromId(1);
+                    m.setMessage("您的文章未通过审核，具体原因如下：\n" +reason+
+                            "谢谢使用本网！");
+                    messageService.insertMessage(m);
                     break;
                 case "pass":
                     blog.setBlogStatus(1);
+                    m = new Message();
+                    m.setToId(userId);
+                    m.setFromId(1);
+                    m.setMessage("您的文章通过审核，已发布！谢谢使用本网！");
+                    messageService.insertMessage(m);
                     break;
                 case "draft":
                     blog.setBlogStatus(0);
@@ -252,16 +273,24 @@ public class BlogController {
 
     }
 
+    /**
+     * get blog by blog Id (with comment)
+     * @param blogId
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/blog")
     public String getPage(@RequestParam(value = "blogId",required = true) Integer blogId,
                           Model model){
         Blog blog = blogService.selectById(blogId);
         User user = userService.selectById(blog.getAuthorId());
         String category = categoryService.getCategory(blog.getBlogCategory());
+        List<Comment> comment = commentService.selectByBlogId(blogId);
         model.addAttribute("author",user.getUserName());
         model.addAttribute("authorId",user.getUserId());
         model.addAttribute("category",category);
         model.addAttribute("blog",blog);
+        model.addAttribute("comment",comment);
         return "page.html";
     }
 
