@@ -76,6 +76,21 @@ function getAuthority(){
     }
     return authority;
 }
+
+/**
+ * get message by from id
+ */
+function getMsgByFromId(fromId) {
+    $.ajax({
+        url: '/getMsg.do',
+        data: {'fromId': fromId},
+        dataType: 'json',
+        success: function (data) {
+
+        }
+    })
+}
+
 /**
  * search for page to add active
 

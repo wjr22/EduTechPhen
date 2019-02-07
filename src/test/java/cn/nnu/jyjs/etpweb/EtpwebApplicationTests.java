@@ -100,6 +100,7 @@ public class EtpwebApplicationTests {
         }
     }
 
+    /*
     @Test
     public void write(){
         for(int i = 10; i < 30; i++){
@@ -110,7 +111,7 @@ public class EtpwebApplicationTests {
             blog.setBlogCategory(5);
             blogService.insert(blog);
         }
-    }
+    }*/
 
     @Value("${file.upload}")
     private String path;
@@ -120,15 +121,15 @@ public class EtpwebApplicationTests {
      */
     @Test
     public void uploadTest() throws Exception {
-        File f = new File("D:/tree.jpg");
-        FileCopyUtils.copy(f, new File(path + "/1.jpg"));
+        //File f = new File("D:/tree.jpg");
+        //FileCopyUtils.copy(f, new File(path + "/1.jpg"));
     }
 
     @Test
     public void listFilesTest() {
-        File file = new File(path);
-        for (File f : file.listFiles()) {
-            System.out.println("fileName : " + f.getName());
-        }
+        //File file = new File(path);
+        //for (File f : file.listFiles()) {
+        //    System.out.println("fileName : " + f.getName());
+        //}
     }
 }

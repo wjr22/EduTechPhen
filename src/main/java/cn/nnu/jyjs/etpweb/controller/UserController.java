@@ -1,9 +1,12 @@
 package cn.nnu.jyjs.etpweb.controller;
 
+import cn.nnu.jyjs.etpweb.bean.Message;
 import cn.nnu.jyjs.etpweb.bean.User;
 import cn.nnu.jyjs.etpweb.mapper.UserMapper;
+import cn.nnu.jyjs.etpweb.service.MessageService;
 import cn.nnu.jyjs.etpweb.service.UserService;
 import cn.nnu.jyjs.etpweb.utils.Encryption;
+import com.alibaba.fastjson.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,6 +33,9 @@ import java.util.logging.Logger;
 public class UserController {
 
     private Logger logger = Logger.getLogger("UserController");
+
+    @Autowired
+    private MessageService messageService;
 
     @Autowired
     private UserService userService;
@@ -163,6 +169,22 @@ public class UserController {
     public @ResponseBody String getAuthority(@RequestParam("userId") String userId){
         User user = userMapper.selectByPrimaryKey(Integer.parseInt(userId));
         return user.getUserAuthority();
+    }
+
+    @RequestMapping(value = "/getMsg.do")
+    public @ResponseBody
+    String getMsg(@RequestParam(value = "fromId", required = false) Integer fromID,
+                  @RequestParam(value = "toId", required = false) Integer toID,
+                  HttpServletRequest request) {
+        List<Message> msgs = null;
+        if (fromID != null) {
+            msgs = messageService.selectByFromId(fromID);
+        } else if (toID != null) {
+            msgs = messageService.selectByToId(toID);
+        } else {
+            msgs = messageService.selectByToId((Integer) request.getSession().getAttribute("userId"));
+        }
+        return JSONArray.toJSONString(msgs);
     }
 
 }

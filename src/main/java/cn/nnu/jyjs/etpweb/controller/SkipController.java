@@ -1,8 +1,10 @@
 package cn.nnu.jyjs.etpweb.controller;
 
 import cn.nnu.jyjs.etpweb.bean.BlogSet;
+import cn.nnu.jyjs.etpweb.bean.Message;
 import cn.nnu.jyjs.etpweb.bean.User;
 import cn.nnu.jyjs.etpweb.service.BlogService;
+import cn.nnu.jyjs.etpweb.service.MessageService;
 import cn.nnu.jyjs.etpweb.service.UserService;
 import org.hibernate.validator.constraints.URL;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +36,9 @@ public class SkipController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private MessageService messageService;
+
     @RequestMapping(value = "/home")
     public String skipIndex(){
         return "index.html";
@@ -57,7 +62,9 @@ public class SkipController {
     @RequestMapping(value = "/admin")
     public String skipAdmin(Model ui, HttpServletRequest request){
         User user = userService.selectById((Integer) request.getSession().getAttribute("userId"));
+        List<Message> messages = messageService.selectByToId((Integer) request.getSession().getAttribute("userId"));
         ui.addAttribute("user",user);
+        ui.addAttribute("msg", messages);
         if(user == null){
             return "login.html";
         }
@@ -71,7 +78,9 @@ public class SkipController {
     public String skipAdmin2(Model ui, HttpServletRequest request,
                             @PathVariable("path") String path){
         User user = userService.selectById((Integer) request.getSession().getAttribute("userId"));
+        List<Message> messages = messageService.selectByToId((Integer) request.getSession().getAttribute("userId"));
         ui.addAttribute("user",user);
+        ui.addAttribute("msg", messages);
         List<BlogSet> blogSet;
         if(user == null){
             return "login.html";
@@ -119,12 +128,12 @@ public class SkipController {
 
     @RequestMapping(value = "/home/blog")
     public String skipBlogs(){
-        return "/home/blog";
+        return "/home/blog.html";
     }
 
     @RequestMapping(value = "/home/doc")
     public String skipDocs(){
-        return "/home/documents";
+        return "/home/documents.html";
     }
 
     /* ? NOT USE */

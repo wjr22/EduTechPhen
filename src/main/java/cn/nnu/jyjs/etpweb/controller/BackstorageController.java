@@ -100,6 +100,7 @@ public class BackstorageController {
                 break;
         }
         json.put("result", result);
+        json.put("size", blogSets.size());
         if (result) {
             json.put("blogSets", blogSets);
         }

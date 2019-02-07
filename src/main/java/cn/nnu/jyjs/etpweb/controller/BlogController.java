@@ -103,8 +103,9 @@ public class BlogController {
         }
         Date date = new Date();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyMMdd");
-        int b = blog.getBlogTitle().hashCode();
-        String id = simpleDateFormat.format(date) + String.valueOf(b);
+        int b = Math.abs(blog.getBlogTitle().hashCode());
+        logger.info(String.valueOf(b));
+        String id = simpleDateFormat.format(date) + b;
         logger.info(id);
         blog.setBlogId(Integer.parseInt(id.substring(0,9)));
         if(blogService.selectById(blog.getBlogId()) == null) {

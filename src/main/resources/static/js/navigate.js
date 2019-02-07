@@ -9,6 +9,10 @@ function addActive() {
         }
     });
 }
+
+/**
+ * get blogs and append to html
+ */
 function blog(){
     $('#home-blog').addClass('active');
     $.ajax({
@@ -17,26 +21,19 @@ function blog(){
             'method': 'category',
             'category': '5'
         },
+        async: false,
         type: "GET",
         success: function(data){
             var json = $.parseJSON(data);
             if(json.result==true) {
                 var blogs = json.blogSets;
-                console.log(blogs);
                 for (var i in blogs) {
                     if(blogs[i].blogStatus == "审核通过"){
-                        //alert(blogs[i].blogId);
                         // TODO append html to main-contain
-                        $('#main-contain').html("<div>\n" +
-                            "            <div class=\"b-list\">\n" +
-                            "                <p>\n" +
-                            "<h3><a href='/blog?blogId=" + blogs[i].blogId + "'>" + blogs[i].blogTitle +"</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
-                            "<small>" + blogs[i].author + "</small></h3>" +
-                            "<small>" + blogs[i].blogAbstract + "</small>" +
-                            "                </p>\n" +
-                            "            </div>\n" +
-                            "            <HR style=\"FILTER: progid:DXImageTransform.Microsoft.Shadow(color:#987cb9,direction:145,strength:15)\" width=\"80%\" color=#987cb9 SIZE=1>\n" +
-                            "        </div>")
+                        // TODO paging
+                        $('#main-contain').append("<div><div class=\"b-list\"><p><h4><a href='/blog?blogId=" + blogs[i].blogId + "'>" + blogs[i].blogTitle + "</a></h4><div class='abstract-content'>" + blogs[i].blogAbstract + "</div>" +
+                            "                   <div class='blog-info'><img src=''>" + "<span>" + blogs[i].author + "</span> <span>" + blogs[i].updateDate + "</span></div></p></div>" +
+                            "            <HR style=\"FILTER: progid:DXImageTransform.Microsoft.Shadow(color:#987cb9,direction:145,strength:15)\" width=\"80%\" color=#987cb9 SIZE=1></div>")
                     }
                 }
             }

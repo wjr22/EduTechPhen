@@ -17,7 +17,7 @@
         select * from tMessage where fromId = #{fromId}
     </select>
     <select id="selectByToId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
-        select * from tMessage where userId = #{toId}
+        select * from tMessage where toId = #{toId}
     </select>
     <insert id="insertMessage" parameterType="cn.nnu.jyjs.etpweb.bean.Message">
         <selectKey keyProperty="mID" order="AFTER" resultType="java.lang.Integer">
